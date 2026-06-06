@@ -14,18 +14,18 @@ import type { PurchaseOrder } from '@/types/purchaseOrder.types';
 
 export function PurchaseOrderListPage() {
   const { data, isLoading, error } = useQuery({
-    queryKey: queryKeys.purchaseOrders.list,
+    queryKey: queryKeys.purchaseOrders.list(),
     queryFn: () => purchaseOrdersApi.list({ limit: 100 }),
   });
 
   const { data: invoicesData } = useQuery({
-    queryKey: queryKeys.invoices.list,
+    queryKey: queryKeys.invoices.list(),
     queryFn: () => invoicesApi.list({ limit: 200 }),
   });
 
   const invoiceIdByPoId = useMemo(() => {
     const map = new Map<string, string>();
-    invoicesData?.items.forEach((invoice) => {
+    invoicesData?.items?.forEach((invoice) => {
       if (invoice.poId) map.set(invoice.poId, invoice.id);
     });
     return map;

@@ -19,7 +19,7 @@ export function DashboardPage() {
 
   const { data, isLoading, error } = useQuery({
     queryKey: queryKeys.dashboard,
-    queryFn: dashboardApi.get,
+    queryFn: () => dashboardApi.get(),
   });
 
   const stats =
@@ -44,7 +44,7 @@ export function DashboardPage() {
             { label: 'Overdue Invoices', value: data?.overdueInvoices ?? 0, color: 'text-red-600' },
           ];
 
-  const maxTrend = Math.max(...(data?.spendingTrend.map((t) => t.amount) ?? [1]), 1);
+  const maxTrend = Math.max(...(data?.spendingTrend?.map((t) => t.amount) ?? [1]), 1);
 
   return (
     <div>

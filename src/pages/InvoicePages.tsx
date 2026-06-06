@@ -16,7 +16,7 @@ import type { Invoice, InvoiceStatus } from '@/types/invoice.types';
 
 export function InvoiceListPage() {
   const { data, isLoading, error } = useQuery({
-    queryKey: queryKeys.invoices.list,
+    queryKey: queryKeys.invoices.list(),
     queryFn: () => invoicesApi.list({ limit: 100 }),
   });
 
@@ -83,7 +83,7 @@ export function InvoiceDetailPage() {
     mutationFn: () => invoicesApi.markPaid(id),
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: queryKeys.invoices.detail(id) });
-      queryClient.invalidateQueries({ queryKey: queryKeys.invoices.list });
+      queryClient.invalidateQueries({ queryKey: queryKeys.invoices.list() });
     },
   });
 
