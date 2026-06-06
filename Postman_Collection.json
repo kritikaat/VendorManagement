@@ -1,0 +1,1959 @@
+{
+  "info": {
+    "_postman_id": "9d81d2f2-1a48-43d9-a2ea-7ab0e2b4d8c6",
+    "name": "Procurement Management System (PMS) API Collection",
+    "description": "Comprehensive API collection for the Procurement Management System (PMS). Configure collection variables before running requests. Do not commit real credentials.",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "variable": [
+    { "key": "baseUrl", "value": "http://localhost:3000/api/v1" },
+    { "key": "firstName", "value": "" },
+    { "key": "lastName", "value": "" },
+    { "key": "email", "value": "" },
+    { "key": "password", "value": "" },
+    { "key": "phone", "value": "" },
+    { "key": "country", "value": "" },
+    { "key": "additionalInfo", "value": "" },
+    { "key": "currentPassword", "value": "" },
+    { "key": "newPassword", "value": "" },
+    { "key": "token", "value": "" },
+    { "key": "vendorId", "value": "" },
+    { "key": "rfqId", "value": "" },
+    { "key": "quotationId", "value": "" },
+    { "key": "approvalId", "value": "" },
+    { "key": "poId", "value": "" },
+    { "key": "invoiceId", "value": "" },
+    { "key": "notificationId", "value": "" },
+    { "key": "resetToken", "value": "" }
+  ],
+  "item": [
+    {
+      "name": "Auth",
+      "item": [
+        {
+          "name": "Signup (Admin)",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "const responseJson = pm.response.json();",
+                  "if (responseJson && responseJson.data && responseJson.data.token) {",
+                  "    pm.globals.set(\"token\", responseJson.data.token);",
+                  "}"
+                ],
+                "type": "text/javascript"
+              }
+            }
+          ],
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"firstName\": \"{{firstName}}\",\n  \"lastName\": \"{{lastName}}\",\n  \"email\": \"{{email}}\",\n  \"password\": \"{{password}}\",\n  \"role\": \"admin\",\n  \"phone\": \"{{phone}}\",\n  \"country\": \"{{country}}\",\n  \"additionalInfo\": \"{{additionalInfo}}\"\n}"
+            },
+            "url": {
+              "raw": "{{baseUrl}}/auth/signup",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "auth",
+                "signup"
+              ]
+            },
+            "description": "**Required Permissions:** Public (No Token Required)\n\n"
+          }
+        },
+        {
+          "name": "Signup (Procurement Officer)",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "const responseJson = pm.response.json();",
+                  "if (responseJson && responseJson.data && responseJson.data.token) {",
+                  "    pm.globals.set(\"token\", responseJson.data.token);",
+                  "}"
+                ],
+                "type": "text/javascript"
+              }
+            }
+          ],
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"firstName\": \"{{firstName}}\",\n  \"lastName\": \"{{lastName}}\",\n  \"email\": \"{{email}}\",\n  \"password\": \"{{password}}\",\n  \"role\": \"procurement_officer\",\n  \"phone\": \"{{phone}}\",\n  \"country\": \"{{country}}\",\n  \"additionalInfo\": \"{{additionalInfo}}\"\n}"
+            },
+            "url": {
+              "raw": "{{baseUrl}}/auth/signup",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "auth",
+                "signup"
+              ]
+            },
+            "description": "**Required Permissions:** Public (No Token Required)\n\n"
+          }
+        },
+        {
+          "name": "Signup (Vendor)",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "const responseJson = pm.response.json();",
+                  "if (responseJson && responseJson.data && responseJson.data.token) {",
+                  "    pm.globals.set(\"token\", responseJson.data.token);",
+                  "}"
+                ],
+                "type": "text/javascript"
+              }
+            }
+          ],
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"firstName\": \"{{firstName}}\",\n  \"lastName\": \"{{lastName}}\",\n  \"email\": \"{{email}}\",\n  \"password\": \"{{password}}\",\n  \"role\": \"vendor\",\n  \"phone\": \"{{phone}}\",\n  \"country\": \"{{country}}\",\n  \"additionalInfo\": \"{{additionalInfo}}\"\n}"
+            },
+            "url": {
+              "raw": "{{baseUrl}}/auth/signup",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "auth",
+                "signup"
+              ]
+            },
+            "description": "**Required Permissions:** Public (No Token Required)\n\n"
+          }
+        },
+        {
+          "name": "Signup (Manager)",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "const responseJson = pm.response.json();",
+                  "if (responseJson && responseJson.data && responseJson.data.token) {",
+                  "    pm.globals.set(\"token\", responseJson.data.token);",
+                  "}"
+                ],
+                "type": "text/javascript"
+              }
+            }
+          ],
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"firstName\": \"{{firstName}}\",\n  \"lastName\": \"{{lastName}}\",\n  \"email\": \"{{email}}\",\n  \"password\": \"{{password}}\",\n  \"role\": \"manager\",\n  \"phone\": \"{{phone}}\",\n  \"country\": \"{{country}}\",\n  \"additionalInfo\": \"{{additionalInfo}}\"\n}"
+            },
+            "url": {
+              "raw": "{{baseUrl}}/auth/signup",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "auth",
+                "signup"
+              ]
+            },
+            "description": "**Required Permissions:** Public (No Token Required)\n\n"
+          }
+        },
+        {
+          "name": "Login",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "const responseJson = pm.response.json();",
+                  "if (responseJson && responseJson.data && responseJson.data.token) {",
+                  "    pm.globals.set(\"token\", responseJson.data.token);",
+                  "}"
+                ],
+                "type": "text/javascript"
+              }
+            }
+          ],
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"email\": \"{{email}}\",\n  \"password\": \"{{password}}\"\n}"
+            },
+            "url": {
+              "raw": "{{baseUrl}}/auth/login",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "auth",
+                "login"
+              ]
+            },
+            "description": "**Required Permissions:** Public (No Token Required)\n\n"
+          }
+        },
+        {
+          "name": "Get Profile (Me)",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{token}}"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/auth/me",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "auth",
+                "me"
+              ]
+            },
+            "description": "**Required Permissions:** All Authenticated Users\n\n"
+          }
+        },
+        {
+          "name": "Forgot Password",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"email\": \"{{email}}\"\n}"
+            },
+            "url": {
+              "raw": "{{baseUrl}}/auth/forgot-password",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "auth",
+                "forgot-password"
+              ]
+            },
+            "description": "**Required Permissions:** Public (No Token Required)\n\n"
+          }
+        },
+        {
+          "name": "Reset Password",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"token\": \"{{resetToken}}\",\n  \"password\": \"{{newPassword}}\"\n}"
+            },
+            "url": {
+              "raw": "{{baseUrl}}/auth/reset-password",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "auth",
+                "reset-password"
+              ]
+            },
+            "description": "**Required Permissions:** Public (No Token Required)\n\n"
+          }
+        },
+        {
+          "name": "Change Password",
+          "request": {
+            "method": "PUT",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{token}}"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"currentPassword\": \"{{currentPassword}}\",\n  \"newPassword\": \"{{newPassword}}\"\n}"
+            },
+            "url": {
+              "raw": "{{baseUrl}}/auth/change-password",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "auth",
+                "change-password"
+              ]
+            },
+            "description": "**Required Permissions:** All Authenticated Users\n\n"
+          }
+        },
+        {
+          "name": "Refresh Token",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{token}}"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/auth/refresh-token",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "auth",
+                "refresh-token"
+              ]
+            },
+            "description": "**Required Permissions:** All Authenticated Users\n\n"
+          }
+        },
+        {
+          "name": "Logout",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{token}}"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/auth/logout",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "auth",
+                "logout"
+              ]
+            },
+            "description": "**Required Permissions:** All Authenticated Users\n\n"
+          }
+        }
+      ]
+    },
+    {
+      "name": "Dashboard",
+      "item": [
+        {
+          "name": "Get Dashboard Summary",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{token}}"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/dashboard",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "dashboard"
+              ]
+            },
+            "description": "**Required Permissions:** All Authenticated Users\n\n"
+          }
+        }
+      ]
+    },
+    {
+      "name": "Vendors",
+      "item": [
+        {
+          "name": "Create Vendor",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "const responseJson = pm.response.json();",
+                  "if (responseJson && responseJson.data && responseJson.data._id) {",
+                  "    pm.globals.set(\"vendorId\", responseJson.data._id);",
+                  "}"
+                ],
+                "type": "text/javascript"
+              }
+            }
+          ],
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{token}}"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"companyName\": \"Acme Electronics\",\n  \"category\": \"Electronics\",\n  \"GSTNumber\": \"29ABCDE1234F1Z5\",\n  \"email\": \"vendor@acme.com\",\n  \"phone\": \"9876543210\",\n  \"address\": \"123 Tech Park\",\n  \"city\": \"Bangalore\",\n  \"state\": \"Karnataka\",\n  \"country\": \"India\",\n  \"rating\": 4.5\n}"
+            },
+            "url": {
+              "raw": "{{baseUrl}}/vendors",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "vendors"
+              ]
+            },
+            "description": "**Required Permissions:** Admin, Procurement Officer\n\n"
+          }
+        },
+        {
+          "name": "Get Vendors (Paginated & Filter)",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{token}}"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/vendors?page=1&limit=10&category=Electronics&status=Active&keyword=Acme",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "vendors"
+              ],
+              "query": [
+                {
+                  "key": "page",
+                  "value": "1"
+                },
+                {
+                  "key": "limit",
+                  "value": "10"
+                },
+                {
+                  "key": "category",
+                  "value": "Electronics"
+                },
+                {
+                  "key": "status",
+                  "value": "Active"
+                },
+                {
+                  "key": "keyword",
+                  "value": "Acme"
+                }
+              ]
+            },
+            "description": "**Required Permissions:** All Authenticated Users\n\n"
+          }
+        },
+        {
+          "name": "Search Vendors",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{token}}"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/vendors/search?category=Electronics&status=Active",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "vendors",
+                "search"
+              ],
+              "query": [
+                {
+                  "key": "category",
+                  "value": "Electronics"
+                },
+                {
+                  "key": "status",
+                  "value": "Active"
+                }
+              ]
+            },
+            "description": "**Required Permissions:** All Authenticated Users\n\n"
+          }
+        },
+        {
+          "name": "Get Vendor By ID",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{token}}"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/vendors/{{vendorId}}",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "vendors",
+                "{{vendorId}}"
+              ]
+            },
+            "description": "**Required Permissions:** All Authenticated Users\n\n"
+          }
+        },
+        {
+          "name": "Update Vendor",
+          "request": {
+            "method": "PUT",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{token}}"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"city\": \"Mumbai\",\n  \"rating\": 4.8\n}"
+            },
+            "url": {
+              "raw": "{{baseUrl}}/vendors/{{vendorId}}",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "vendors",
+                "{{vendorId}}"
+              ]
+            },
+            "description": "**Required Permissions:** Admin, Procurement Officer\n\n"
+          }
+        },
+        {
+          "name": "Delete Vendor (Soft Delete)",
+          "request": {
+            "method": "DELETE",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{token}}"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/vendors/{{vendorId}}",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "vendors",
+                "{{vendorId}}"
+              ]
+            },
+            "description": "**Required Permissions:** Admin\n\n"
+          }
+        }
+      ]
+    },
+    {
+      "name": "RFQs",
+      "item": [
+        {
+          "name": "Create RFQ",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "const responseJson = pm.response.json();",
+                  "if (responseJson && responseJson.data && responseJson.data._id) {",
+                  "    pm.globals.set(\"rfqId\", responseJson.data._id);",
+                  "}"
+                ],
+                "type": "text/javascript"
+              }
+            }
+          ],
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{token}}"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"title\": \"Office Supplies 2026\",\n  \"description\": \"Quarterly procurement of office stationery and laptops\",\n  \"products\": [\n    {\n      \"name\": \"Laptops\",\n      \"specification\": \"16GB RAM, 512GB SSD, Intel i7\",\n      \"quantity\": 5\n    },\n    {\n      \"name\": \"Wireless Mouse\",\n      \"specification\": \"Logitech Bluetooth Mouse\",\n      \"quantity\": 10\n    }\n  ],\n  \"deadline\": \"2026-12-31T23:59:59.000Z\"\n}"
+            },
+            "url": {
+              "raw": "{{baseUrl}}/rfqs",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "rfqs"
+              ]
+            },
+            "description": "**Required Permissions:** Admin, Procurement Officer\n\n"
+          }
+        },
+        {
+          "name": "Get RFQs (Filtered & Sorted)",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{token}}"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/rfqs?page=1&limit=10&status=Published&sortBy=deadline&order=asc",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "rfqs"
+              ],
+              "query": [
+                {
+                  "key": "page",
+                  "value": "1"
+                },
+                {
+                  "key": "limit",
+                  "value": "10"
+                },
+                {
+                  "key": "status",
+                  "value": "Published"
+                },
+                {
+                  "key": "sortBy",
+                  "value": "deadline"
+                },
+                {
+                  "key": "order",
+                  "value": "asc"
+                }
+              ]
+            },
+            "description": "**Required Permissions:** All Authenticated Users\n\n"
+          }
+        },
+        {
+          "name": "Get RFQ By ID",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{token}}"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/rfqs/{{rfqId}}",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "rfqs",
+                "{{rfqId}}"
+              ]
+            },
+            "description": "**Required Permissions:** All Authenticated Users\n\n"
+          }
+        },
+        {
+          "name": "Update RFQ",
+          "request": {
+            "method": "PUT",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{token}}"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"description\": \"Updated procurement parameters for office equipment\"\n}"
+            },
+            "url": {
+              "raw": "{{baseUrl}}/rfqs/{{rfqId}}",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "rfqs",
+                "{{rfqId}}"
+              ]
+            },
+            "description": "**Required Permissions:** Admin, Procurement Officer\n\n"
+          }
+        },
+        {
+          "name": "Assign Vendors to RFQ (Publishes RFQ)",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{token}}"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"vendorIds\": [\"{{vendorId}}\"]\n}"
+            },
+            "url": {
+              "raw": "{{baseUrl}}/rfqs/{{rfqId}}/vendors",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "rfqs",
+                "{{rfqId}}",
+                "vendors"
+              ]
+            },
+            "description": "**Required Permissions:** Admin, Procurement Officer\n\n"
+          }
+        },
+        {
+          "name": "Upload Attachment (Cloudinary)",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{token}}"
+              }
+            ],
+            "body": {
+              "mode": "formdata",
+              "formdata": [
+                {
+                  "key": "file",
+                  "type": "file",
+                  "src": []
+                }
+              ]
+            },
+            "url": {
+              "raw": "{{baseUrl}}/rfqs/{{rfqId}}/attachments",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "rfqs",
+                "{{rfqId}}",
+                "attachments"
+              ]
+            },
+            "description": "**Required Permissions:** Admin, Procurement Officer\n\n"
+          }
+        },
+        {
+          "name": "Close RFQ",
+          "request": {
+            "method": "PUT",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{token}}"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/rfqs/{{rfqId}}/close",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "rfqs",
+                "{{rfqId}}",
+                "close"
+              ]
+            },
+            "description": "**Required Permissions:** Admin, Procurement Officer\n\n"
+          }
+        },
+        {
+          "name": "Delete RFQ",
+          "request": {
+            "method": "DELETE",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{token}}"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/rfqs/{{rfqId}}",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "rfqs",
+                "{{rfqId}}"
+              ]
+            },
+            "description": "**Required Permissions:** Admin\n\n"
+          }
+        }
+      ]
+    },
+    {
+      "name": "Quotations",
+      "item": [
+        {
+          "name": "Submit Quotation",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "const responseJson = pm.response.json();",
+                  "if (responseJson && responseJson.data && responseJson.data._id) {",
+                  "    pm.globals.set(\"quotationId\", responseJson.data._id);",
+                  "}"
+                ],
+                "type": "text/javascript"
+              }
+            }
+          ],
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{token}}"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"rfqId\": \"{{rfqId}}\",\n  \"pricing\": [\n    {\n      \"productName\": \"Laptops\",\n      \"unitPrice\": 45000,\n      \"quantity\": 5,\n      \"totalPrice\": 225000\n    },\n    {\n      \"productName\": \"Wireless Mouse\",\n      \"unitPrice\": 700,\n      \"quantity\": 10,\n      \"totalPrice\": 7000\n    }\n  ],\n  \"deliveryTimeline\": 14,\n  \"notes\": \"Premium quality components with full standard warranty\"\n}"
+            },
+            "url": {
+              "raw": "{{baseUrl}}/quotations",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "quotations"
+              ]
+            },
+            "description": "**Required Permissions:** Vendor\n\n"
+          }
+        },
+        {
+          "name": "Get Vendor Quotations (By Vendor)",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{token}}"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/quotations/vendor",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "quotations",
+                "vendor"
+              ]
+            },
+            "description": "**Required Permissions:** Vendor\n\n"
+          }
+        },
+        {
+          "name": "Get Quotations for RFQ",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{token}}"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/quotations/rfq/{{rfqId}}",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "quotations",
+                "rfq",
+                "{{rfqId}}"
+              ]
+            },
+            "description": "**Required Permissions:** Admin, Procurement Officer, Manager\n\n"
+          }
+        },
+        {
+          "name": "Update Quotation",
+          "request": {
+            "method": "PUT",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{token}}"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"deliveryTimeline\": 10,\n  \"notes\": \"Revised and accelerated delivery schedule\"\n}"
+            },
+            "url": {
+              "raw": "{{baseUrl}}/quotations/{{quotationId}}",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "quotations",
+                "{{quotationId}}"
+              ]
+            },
+            "description": "**Required Permissions:** Vendor\n\n"
+          }
+        },
+        {
+          "name": "Withdraw Quotation",
+          "request": {
+            "method": "PUT",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{token}}"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/quotations/{{quotationId}}/withdraw",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "quotations",
+                "{{quotationId}}",
+                "withdraw"
+              ]
+            },
+            "description": "**Required Permissions:** Vendor\n\n"
+          }
+        }
+      ]
+    },
+    {
+      "name": "Comparisons",
+      "item": [
+        {
+          "name": "Compare Quotations",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{token}}"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/comparisons/{{rfqId}}?sortBy=price",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "comparisons",
+                "{{rfqId}}"
+              ],
+              "query": [
+                {
+                  "key": "sortBy",
+                  "value": "price",
+                  "description": "Values: price | delivery | rating"
+                }
+              ]
+            },
+            "description": "**Required Permissions:** Admin, Procurement Officer, Manager\n\n"
+          }
+        }
+      ]
+    },
+    {
+      "name": "Approvals",
+      "item": [
+        {
+          "name": "Create Approval Request",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "const responseJson = pm.response.json();",
+                  "if (responseJson && responseJson.data && responseJson.data._id) {",
+                  "    pm.globals.set(\"approvalId\", responseJson.data._id);",
+                  "}"
+                ],
+                "type": "text/javascript"
+              }
+            }
+          ],
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{token}}"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"rfqId\": \"{{rfqId}}\",\n  \"quotationId\": \"{{quotationId}}\"\n}"
+            },
+            "url": {
+              "raw": "{{baseUrl}}/approvals",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "approvals"
+              ]
+            },
+            "description": "**Required Permissions:** Admin, Procurement Officer\n\n"
+          }
+        },
+        {
+          "name": "List Approvals (Pending/Approved/Rejected)",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{token}}"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/approvals?status=Pending&page=1&limit=10",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "approvals"
+              ],
+              "query": [
+                {
+                  "key": "status",
+                  "value": "Pending"
+                },
+                {
+                  "key": "page",
+                  "value": "1"
+                },
+                {
+                  "key": "limit",
+                  "value": "10"
+                }
+              ]
+            },
+            "description": "**Required Permissions:** All Authenticated Users\n\n"
+          }
+        },
+        {
+          "name": "Get Approval Details & Timeline",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{token}}"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/approvals/{{approvalId}}/timeline",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "approvals",
+                "{{approvalId}}",
+                "timeline"
+              ]
+            },
+            "description": "**Required Permissions:** All Authenticated Users\n\n"
+          }
+        },
+        {
+          "name": "Approve Request",
+          "request": {
+            "method": "PUT",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{token}}"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"remarks\": \"Quotation meets budget constraints and technical requirements.\"\n}"
+            },
+            "url": {
+              "raw": "{{baseUrl}}/approvals/{{approvalId}}/approve",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "approvals",
+                "{{approvalId}}",
+                "approve"
+              ]
+            },
+            "description": "**Required Permissions:** Admin, Manager\n\n"
+          }
+        },
+        {
+          "name": "Reject Request",
+          "request": {
+            "method": "PUT",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{token}}"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"remarks\": \"Price is significantly above average budget.\"\n}"
+            },
+            "url": {
+              "raw": "{{baseUrl}}/approvals/{{approvalId}}/reject",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "approvals",
+                "{{approvalId}}",
+                "reject"
+              ]
+            },
+            "description": "**Required Permissions:** Admin, Manager\n\n"
+          }
+        }
+      ]
+    },
+    {
+      "name": "Purchase Orders",
+      "item": [
+        {
+          "name": "Generate PO",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "const responseJson = pm.response.json();",
+                  "if (responseJson && responseJson.data && responseJson.data._id) {",
+                  "    pm.globals.set(\"poId\", responseJson.data._id);",
+                  "}"
+                ],
+                "type": "text/javascript"
+              }
+            }
+          ],
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{token}}"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"quotationId\": \"{{quotationId}}\",\n  \"taxRate\": 18\n}"
+            },
+            "url": {
+              "raw": "{{baseUrl}}/purchase-orders",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "purchase-orders"
+              ]
+            },
+            "description": "**Required Permissions:** Admin, Procurement Officer\n\n"
+          }
+        },
+        {
+          "name": "Get PO List",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{token}}"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/purchase-orders?status=Generated&page=1&limit=10",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "purchase-orders"
+              ],
+              "query": [
+                {
+                  "key": "status",
+                  "value": "Generated"
+                },
+                {
+                  "key": "page",
+                  "value": "1"
+                },
+                {
+                  "key": "limit",
+                  "value": "10"
+                }
+              ]
+            },
+            "description": "**Required Permissions:** All Authenticated Users\n\n"
+          }
+        },
+        {
+          "name": "Get PO By ID",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{token}}"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/purchase-orders/{{poId}}",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "purchase-orders",
+                "{{poId}}"
+              ]
+            },
+            "description": "**Required Permissions:** All Authenticated Users\n\n"
+          }
+        },
+        {
+          "name": "Download PO PDF (Streams Cloudinary File)",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{token}}"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/purchase-orders/{{poId}}/pdf",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "purchase-orders",
+                "{{poId}}",
+                "pdf"
+              ]
+            },
+            "description": "**Required Permissions:** All Authenticated Users\n\n"
+          }
+        },
+        {
+          "name": "Email PO to Vendor",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{token}}"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/purchase-orders/{{poId}}/email",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "purchase-orders",
+                "{{poId}}",
+                "email"
+              ]
+            },
+            "description": "**Required Permissions:** Admin, Procurement Officer\n\n"
+          }
+        }
+      ]
+    },
+    {
+      "name": "Invoices",
+      "item": [
+        {
+          "name": "Generate Invoice",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "const responseJson = pm.response.json();",
+                  "if (responseJson && responseJson.data && responseJson.data._id) {",
+                  "    pm.globals.set(\"invoiceId\", responseJson.data._id);",
+                  "}"
+                ],
+                "type": "text/javascript"
+              }
+            }
+          ],
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{token}}"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"poId\": \"{{poId}}\",\n  \"dueDate\": \"2026-10-15T12:00:00.000Z\",\n  \"taxRate\": 18\n}"
+            },
+            "url": {
+              "raw": "{{baseUrl}}/invoices",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "invoices"
+              ]
+            },
+            "description": "**Required Permissions:** Admin, Procurement Officer\n\n"
+          }
+        },
+        {
+          "name": "Get Invoices List",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{token}}"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/invoices?status=Draft&page=1&limit=10",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "invoices"
+              ],
+              "query": [
+                {
+                  "key": "status",
+                  "value": "Draft"
+                },
+                {
+                  "key": "page",
+                  "value": "1"
+                },
+                {
+                  "key": "limit",
+                  "value": "10"
+                }
+              ]
+            },
+            "description": "**Required Permissions:** All Authenticated Users\n\n"
+          }
+        },
+        {
+          "name": "Get Invoice By ID",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{token}}"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/invoices/{{invoiceId}}",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "invoices",
+                "{{invoiceId}}"
+              ]
+            },
+            "description": "**Required Permissions:** All Authenticated Users\n\n"
+          }
+        },
+        {
+          "name": "Download Invoice PDF (Streams Cloudinary File)",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{token}}"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/invoices/{{invoiceId}}/pdf",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "invoices",
+                "{{invoiceId}}",
+                "pdf"
+              ]
+            },
+            "description": "**Required Permissions:** All Authenticated Users\n\n"
+          }
+        },
+        {
+          "name": "Email Invoice to Vendor",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{token}}"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/invoices/{{invoiceId}}/email",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "invoices",
+                "{{invoiceId}}",
+                "email"
+              ]
+            },
+            "description": "**Required Permissions:** Admin, Procurement Officer\n\n"
+          }
+        },
+        {
+          "name": "Mark Invoice as Paid",
+          "request": {
+            "method": "PUT",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{token}}"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/invoices/{{invoiceId}}/paid",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "invoices",
+                "{{invoiceId}}",
+                "paid"
+              ]
+            },
+            "description": "**Required Permissions:** Admin, Procurement Officer\n\n"
+          }
+        }
+      ]
+    },
+    {
+      "name": "Notifications",
+      "item": [
+        {
+          "name": "Get Notifications (All)",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{token}}"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/notifications?page=1&limit=10",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "notifications"
+              ],
+              "query": [
+                {
+                  "key": "page",
+                  "value": "1"
+                },
+                {
+                  "key": "limit",
+                  "value": "10"
+                }
+              ]
+            },
+            "description": "**Required Permissions:** All Authenticated Users\n\n"
+          }
+        },
+        {
+          "name": "Get Unread Notifications",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{token}}"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/notifications?unread=true",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "notifications"
+              ],
+              "query": [
+                {
+                  "key": "unread",
+                  "value": "true"
+                }
+              ]
+            },
+            "description": "**Required Permissions:** All Authenticated Users\n\n"
+          }
+        },
+        {
+          "name": "Mark All as Read",
+          "request": {
+            "method": "PUT",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{token}}"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/notifications/read-all",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "notifications",
+                "read-all"
+              ]
+            },
+            "description": "**Required Permissions:** All Authenticated Users\n\n"
+          }
+        },
+        {
+          "name": "Mark One Notification as Read",
+          "request": {
+            "method": "PUT",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{token}}"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/notifications/{{notificationId}}/read",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "notifications",
+                "{{notificationId}}",
+                "read"
+              ]
+            },
+            "description": "**Required Permissions:** All Authenticated Users\n\n"
+          }
+        }
+      ]
+    },
+    {
+      "name": "Activity Logs",
+      "item": [
+        {
+          "name": "Get Logs (All)",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{token}}"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/logs?page=1&limit=10",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "logs"
+              ],
+              "query": [
+                {
+                  "key": "page",
+                  "value": "1"
+                },
+                {
+                  "key": "limit",
+                  "value": "10"
+                }
+              ]
+            },
+            "description": "**Required Permissions:** Admin\n\n"
+          }
+        },
+        {
+          "name": "Get Logs Filtered by Action",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{token}}"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/logs?action=RFQ_CREATED",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "logs"
+              ],
+              "query": [
+                {
+                  "key": "action",
+                  "value": "RFQ_CREATED"
+                }
+              ]
+            },
+            "description": "**Required Permissions:** Admin\n\n"
+          }
+        },
+        {
+          "name": "Get Logs Filtered by Date Range",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{token}}"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/logs?dateFrom=2026-06-06&dateTo=2026-06-06",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "logs"
+              ],
+              "query": [
+                {
+                  "key": "dateFrom",
+                  "value": "2026-06-06"
+                },
+                {
+                  "key": "dateTo",
+                  "value": "2026-06-06"
+                }
+              ]
+            },
+            "description": "**Required Permissions:** Admin\n\n"
+          }
+        }
+      ]
+    },
+    {
+      "name": "Reports & Analytics",
+      "item": [
+        {
+          "name": "Vendor Performance Report",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{token}}"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/reports/vendor-performance",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "reports",
+                "vendor-performance"
+              ]
+            },
+            "description": "**Required Permissions:** Admin, Procurement Officer\n\n"
+          }
+        },
+        {
+          "name": "Procurement Summary",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{token}}"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/reports/procurement-summary",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "reports",
+                "procurement-summary"
+              ]
+            },
+            "description": "**Required Permissions:** All Authenticated Users\n\n"
+          }
+        },
+        {
+          "name": "Monthly Trends",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{token}}"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/reports/monthly-trends",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "reports",
+                "monthly-trends"
+              ]
+            },
+            "description": "**Required Permissions:** All Authenticated Users\n\n"
+          }
+        },
+        {
+          "name": "Spend Analysis",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{token}}"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/reports/spend-analysis",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "reports",
+                "spend-analysis"
+              ]
+            },
+            "description": "**Required Permissions:** Admin, Procurement Officer\n\n"
+          }
+        },
+        {
+          "name": "Export Data (JSON)",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{token}}"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/reports/export",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "reports",
+                "export"
+              ]
+            },
+            "description": "**Required Permissions:** All Authenticated Users\n\n"
+          }
+        },
+        {
+          "name": "Export Data (CSV)",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{token}}"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/reports/export?format=csv",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "reports",
+                "export"
+              ],
+              "query": [
+                {
+                  "key": "format",
+                  "value": "csv"
+                }
+              ]
+            },
+            "description": "**Required Permissions:** All Authenticated Users\n\n"
+          }
+        }
+      ]
+    },
+    {
+      "name": "Swagger UI Docs",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "http://localhost:3000/api/docs/",
+          "protocol": "http",
+          "host": [
+            "localhost"
+          ],
+          "port": "3000",
+          "path": [
+            "api",
+            "docs",
+            ""
+          ]
+        },
+        "description": "**Required Permissions:** All Authenticated Users\n\n"
+      }
+    }
+  ]
+}

@@ -1,4 +1,4 @@
-export type PurchaseOrderStatus = 'draft' | 'approved' | 'pending' | 'delivered';
+export type PurchaseOrderStatus = 'draft' | 'approved' | 'pending' | 'delivered' | 'generated' | 'sent' | 'fulfilled';
 
 export interface PurchaseOrder {
   id: string;

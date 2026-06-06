@@ -1,10 +1,10 @@
 export type RfqStatus = 'draft' | 'published' | 'closed' | 'cancelled';
 
-export interface RfqLineItem {
+export interface RfqProduct {
   id: string;
-  item: string;
-  qty: number;
-  unit: string;
+  name: string;
+  specification: string;
+  quantity: number;
 }
 
 export interface Rfq {
@@ -14,6 +14,6 @@ export interface Rfq {
   deadline: string;
   description: string;
   status: RfqStatus;
-  lineItems: RfqLineItem[];
+  products: RfqProduct[];
   assignedVendorIds: string[];
 }

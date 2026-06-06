@@ -7,6 +7,7 @@ export interface QuotationLineItem {
 }
 
 export interface QuotationComparison {
+  id?: string;
   vendorId: string;
   vendorName: string;
   grandTotal: number;

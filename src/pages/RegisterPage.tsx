@@ -19,6 +19,15 @@ import { registerSchema, type RegisterFormValues } from '@/lib/validations/auth.
 import { USER_ROLES } from '@/types/auth.types';
 import { useAuth } from '@/hooks/useAuth';
 
+const VENDOR_CATEGORY_OPTIONS = [
+  'Electronics',
+  'Office Supplies',
+  'Logistics',
+  'Manufacturing',
+  'Services',
+  'Other',
+];
+
 const ROLE_OPTIONS = [
   { value: USER_ROLES.ADMIN, label: 'Admin' },
   { value: USER_ROLES.PROCUREMENT_OFFICER, label: 'Procurement Officer' },
@@ -38,6 +47,7 @@ export function RegisterPage() {
     register,
     control,
     handleSubmit,
+    watch,
     formState: { errors, isSubmitting },
   } = useForm<RegisterFormValues>({
     resolver: zodResolver(registerSchema),
@@ -49,16 +59,27 @@ export function RegisterPage() {
       password: '',
       country: 'India',
       additionalInfo: '',
+      vendorProfile: {
+        companyName: '',
+        category: '',
+        GSTNumber: '',
+        address: '',
+        city: '',
+        state: '',
+      },
     },
   });
+
+  const selectedRole = watch('role');
+  const isVendorRegistration = selectedRole === USER_ROLES.VENDOR;
 
   const onSubmit = async (values: RegisterFormValues) => {
     setError(null);
     try {
       await registerUser(values);
       navigate('/dashboard');
-    } catch {
-      setError('Registration failed. Please try again.');
+    } catch (err) {
+      setError(err instanceof Error ? err.message : 'Registration failed. Please try again.');
     }
   };
 
@@ -112,9 +133,100 @@ export function RegisterPage() {
 
           <div className="space-y-2">
             <Label htmlFor="phone">Phone Number</Label>
-            <Input id="phone" type="tel" placeholder="+91 98765 43210" {...register('phone')} />
+            <Input
+              id="phone"
+              type="tel"
+              placeholder={isVendorRegistration ? '9876543210' : '+91 98765 43210'}
+              {...register('phone')}
+            />
+            {errors.phone ? <p className="text-xs text-red-400">{errors.phone.message}</p> : null}
           </div>
         </div>
+
+        {isVendorRegistration ? (
+          <div className="space-y-4 rounded-lg border border-emerald-100 bg-emerald-50/50 p-4">
+            <p className="text-sm font-medium text-emerald-900">Company profile</p>
+            <p className="text-xs text-emerald-800">
+              Vendor accounts need a company profile to appear in the vendor list and submit
+              quotations.
+            </p>
+
+            <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
+              <div className="space-y-2 sm:col-span-2">
+                <Label htmlFor="companyName">Company Name</Label>
+                <Input
+                  id="companyName"
+                  placeholder="Acme Electronics Pvt Ltd"
+                  {...register('vendorProfile.companyName')}
+                />
+                {errors.vendorProfile?.companyName ? (
+                  <p className="text-xs text-red-400">{errors.vendorProfile.companyName.message}</p>
+                ) : null}
+              </div>
+
+              <div className="space-y-2">
+                <Label htmlFor="category">Category</Label>
+                <Controller
+                  control={control}
+                  name="vendorProfile.category"
+                  render={({ field }) => (
+                    <Select onValueChange={field.onChange} value={field.value}>
+                      <SelectTrigger id="category">
+                        <SelectValue placeholder="Select category" />
+                      </SelectTrigger>
+                      <SelectContent>
+                        {VENDOR_CATEGORY_OPTIONS.map((category) => (
+                          <SelectItem key={category} value={category}>
+                            {category}
+                          </SelectItem>
+                        ))}
+                      </SelectContent>
+                    </Select>
+                  )}
+                />
+                {errors.vendorProfile?.category ? (
+                  <p className="text-xs text-red-400">{errors.vendorProfile.category.message}</p>
+                ) : null}
+              </div>
+
+              <div className="space-y-2">
+                <Label htmlFor="GSTNumber">GST Number</Label>
+                <Input
+                  id="GSTNumber"
+                  placeholder="29ABCDE1234F1Z5"
+                  {...register('vendorProfile.GSTNumber')}
+                />
+                {errors.vendorProfile?.GSTNumber ? (
+                  <p className="text-xs text-red-400">{errors.vendorProfile.GSTNumber.message}</p>
+                ) : null}
+              </div>
+
+              <div className="space-y-2 sm:col-span-2">
+                <Label htmlFor="address">Address</Label>
+                <Input id="address" placeholder="123 Tech Park" {...register('vendorProfile.address')} />
+                {errors.vendorProfile?.address ? (
+                  <p className="text-xs text-red-400">{errors.vendorProfile.address.message}</p>
+                ) : null}
+              </div>
+
+              <div className="space-y-2">
+                <Label htmlFor="city">City</Label>
+                <Input id="city" placeholder="Bangalore" {...register('vendorProfile.city')} />
+                {errors.vendorProfile?.city ? (
+                  <p className="text-xs text-red-400">{errors.vendorProfile.city.message}</p>
+                ) : null}
+              </div>
+
+              <div className="space-y-2">
+                <Label htmlFor="state">State</Label>
+                <Input id="state" placeholder="Karnataka" {...register('vendorProfile.state')} />
+                {errors.vendorProfile?.state ? (
+                  <p className="text-xs text-red-400">{errors.vendorProfile.state.message}</p>
+                ) : null}
+              </div>
+            </div>
+          </div>
+        ) : null}
 
         <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
           <div className="space-y-2">

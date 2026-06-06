@@ -7,5 +7,8 @@ export interface Vendor {
   gstNumber: string;
   contactNumber: string;
   email?: string;
+  address?: string;
+  rating?: number;
+  vendorCode?: string;
   status: VendorStatus;
 }

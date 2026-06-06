@@ -8,7 +8,6 @@ import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import { loginSchema, type LoginFormValues } from '@/lib/validations/auth.schema';
-import { DEMO_ACCOUNT_LIST, DEMO_PASSWORD } from '@/data/demoUsers';
 import { useAuth } from '@/hooks/useAuth';
 
 export function LoginPage() {
@@ -20,13 +19,12 @@ export function LoginPage() {
   const {
     register,
     handleSubmit,
-    setValue,
     formState: { errors, isSubmitting },
   } = useForm<LoginFormValues>({
     resolver: zodResolver(loginSchema),
     defaultValues: {
-      email: 'officer@vendorbridge.com',
-      password: DEMO_PASSWORD,
+      email: '',
+      password: '',
     },
   });
 
@@ -35,14 +33,9 @@ export function LoginPage() {
     try {
       await login(values);
       navigate('/dashboard');
-    } catch {
-      setError('Invalid credentials. Please try again.');
+    } catch (err) {
+      setError(err instanceof Error ? err.message : 'Invalid credentials. Please try again.');
     }
-  };
-
-  const fillDemo = (email: string) => {
-    setValue('email', email);
-    setValue('password', DEMO_PASSWORD);
   };
 
   return (
@@ -103,25 +96,6 @@ export function LoginPage() {
         <Button type="submit" className="w-full" disabled={isSubmitting}>
           {isSubmitting ? 'Signing in...' : 'Login'}
         </Button>
-
-        <div className="rounded-md border border-slate-200 bg-slate-50 p-3">
-          <p className="mb-2 text-xs font-semibold uppercase tracking-wide text-slate-500">
-            Demo accounts (password: {DEMO_PASSWORD})
-          </p>
-          <div className="space-y-1">
-            {DEMO_ACCOUNT_LIST.map((account) => (
-              <button
-                key={account.email}
-                type="button"
-                onClick={() => fillDemo(account.email)}
-                className="flex w-full items-center justify-between rounded px-2 py-1.5 text-left text-xs text-slate-700 hover:bg-white"
-              >
-                <span>{account.email}</span>
-                <span className="capitalize text-slate-500">{account.role.replace(/_/g, ' ')}</span>
-              </button>
-            ))}
-          </div>
-        </div>
       </form>
     </AuthLayout>
   );

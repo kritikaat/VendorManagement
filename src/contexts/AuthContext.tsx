@@ -7,9 +7,8 @@ import {
   useState,
   type ReactNode,
 } from 'react';
+import { authApi } from '@/api/auth.api';
 import type { AuthSession, LoginPayload, RegisterPayload, User } from '@/types/auth.types';
-import { USER_ROLES } from '@/types/auth.types';
-import { DEMO_PASSWORD, DEMO_USERS } from '@/data/demoUsers';
 
 const STORAGE_KEY = 'vendorbridge_session';
 
@@ -36,86 +35,47 @@ function readStoredSession(): AuthSession | null {
   }
 }
 
-function resolveDemoUser(email: string): User | null {
-  const profile = DEMO_USERS[email.toLowerCase()];
-  if (!profile) return null;
-
-  return {
-    id: `demo-${profile.role}`,
-    firstName: profile.firstName,
-    lastName: profile.lastName,
-    email: email.toLowerCase(),
-    role: profile.role,
-  };
-}
-
-function createMockUser(payload: RegisterPayload | LoginPayload): User {
-  if ('firstName' in payload) {
-    return {
-      id: 'mock-user-1',
-      firstName: payload.firstName,
-      lastName: payload.lastName,
-      email: payload.email,
-      role: payload.role ?? USER_ROLES.PROCUREMENT_OFFICER,
-      phone: payload.phone,
-      country: payload.country,
-      additionalInfo: payload.additionalInfo,
-    };
-  }
-
-  const demoUser = resolveDemoUser(payload.email);
-  if (demoUser) return demoUser;
-
-  return {
-    id: 'mock-user-1',
-    firstName: 'Procurement',
-    lastName: 'Officer',
-    email: payload.email,
-    role: USER_ROLES.PROCUREMENT_OFFICER,
-  };
-}
-
 export function AuthProvider({ children }: { children: ReactNode }) {
   const [session, setSession] = useState<AuthSession | null>(null);
   const [isLoading, setIsLoading] = useState(true);
-
-  useEffect(() => {
-    setSession(readStoredSession());
-    setIsLoading(false);
-  }, []);
 
   const persistSession = useCallback((next: AuthSession) => {
     localStorage.setItem(STORAGE_KEY, JSON.stringify(next));
     setSession(next);
   }, []);
 
+  useEffect(() => {
+    const stored = readStoredSession();
+    if (!stored?.token) {
+      setIsLoading(false);
+      return;
+    }
+
+    setSession(stored);
+    authApi
+      .me()
+      .then((user) => {
+        persistSession({ user, token: stored.token });
+      })
+      .catch(() => {
+        localStorage.removeItem(STORAGE_KEY);
+        setSession(null);
+      })
+      .finally(() => setIsLoading(false));
+  }, [persistSession]);
+
   const login = useCallback(
     async (payload: LoginPayload) => {
-      await new Promise((resolve) => setTimeout(resolve, 400));
-
-      const demoUser = resolveDemoUser(payload.email);
-      if (demoUser && payload.password !== DEMO_PASSWORD) {
-        throw new Error('Invalid credentials');
-      }
-
-      const user = createMockUser(payload);
-      persistSession({
-        user,
-        token: 'mock-jwt-token',
-      });
+      const { user, token } = await authApi.login(payload);
+      persistSession({ user, token });
     },
     [persistSession],
   );
 
   const register = useCallback(
     async (payload: RegisterPayload) => {
-      await new Promise((resolve) => setTimeout(resolve, 500));
-
-      const user = createMockUser(payload);
-      persistSession({
-        user,
-        token: 'mock-jwt-token',
-      });
+      const { user, token } = await authApi.signup(payload);
+      persistSession({ user, token });
     },
     [persistSession],
   );

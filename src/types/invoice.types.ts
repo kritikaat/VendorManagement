@@ -2,6 +2,7 @@ export type InvoiceStatus = 'pending' | 'paid' | 'overdue';
 
 export interface Invoice {
   id: string;
+  poId?: string;
   invoiceNumber: string;
   poNumber: string;
   vendor: string;

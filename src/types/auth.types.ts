@@ -15,6 +15,7 @@ export interface User {
   role: UserRole;
   phone?: string;
   country?: string;
+  photo?: string;
   additionalInfo?: string;
 }
 
@@ -28,6 +29,15 @@ export interface LoginPayload {
   password: string;
 }
 
+export interface VendorSignupProfile {
+  companyName: string;
+  category: string;
+  GSTNumber: string;
+  address: string;
+  city: string;
+  state: string;
+}
+
 export interface RegisterPayload {
   firstName: string;
   lastName: string;
@@ -36,5 +46,7 @@ export interface RegisterPayload {
   password: string;
   role?: UserRole;
   country?: string;
+  photo?: string;
   additionalInfo?: string;
+  vendorProfile?: VendorSignupProfile;
 }
