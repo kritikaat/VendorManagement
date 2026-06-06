@@ -5,7 +5,7 @@ import { StatusBadge } from '@/components/shared/StatusBadge';
 import { Button } from '@/components/ui/button';
 import { MOCK_PURCHASE_ORDERS } from '@/data/mockData';
 import { formatNumber } from '@/lib/formatCurrency';
-import type { PurchaseOrder, PurchaseOrderStatus } from '@/types/purchaseOrder.types';
+import type { PurchaseOrder } from '@/types/purchaseOrder.types';
 
 export function PurchaseOrderListPage() {
   return (
@@ -31,12 +31,7 @@ export function PurchaseOrderListPage() {
           {
             key: 'status',
             header: 'Status',
-            render: (row) => (
-              <StatusBadge
-                status={row.status}
-                variant={row.status === 'approved' ? 'approved' : (row.status as PurchaseOrderStatus)}
-              />
-            ),
+            render: (row) => <StatusBadge status={row.status} />,
           },
           {
             key: 'action',

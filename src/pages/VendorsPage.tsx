@@ -7,6 +7,7 @@ import { DataTable } from '@/components/shared/DataTable';
 import { StatusBadge } from '@/components/shared/StatusBadge';
 import { Button } from '@/components/ui/button';
 import { MOCK_VENDORS } from '@/data/mockData';
+import { usePermission } from '@/hooks/usePermission';
 import type { Vendor, VendorStatus } from '@/types/vendor.types';
 
 const FILTER_OPTIONS = [
@@ -29,6 +30,7 @@ const FILTER_OPTIONS = [
 ];
 
 export function VendorsPage() {
+  const { can } = usePermission();
   const [search, setSearch] = useState('');
   const [statusFilter, setStatusFilter] = useState('all');
 
@@ -51,10 +53,12 @@ export function VendorsPage() {
         title="Vendors"
         subtitle="Manage supplier profiles and registrations"
         action={
-          <Button>
-            <Plus className="h-4 w-4" />
-            Add Vendor
-          </Button>
+          can('vendor:create') ? (
+            <Button>
+              <Plus className="h-4 w-4" />
+              Add Vendor
+            </Button>
+          ) : undefined
         }
       />
 

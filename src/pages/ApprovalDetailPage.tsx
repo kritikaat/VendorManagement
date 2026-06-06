@@ -7,10 +7,12 @@ import { Textarea } from '@/components/ui/textarea';
 import { Label } from '@/components/ui/label';
 import { MOCK_APPROVAL_DETAIL } from '@/data/mockData';
 import { formatNumber } from '@/lib/formatCurrency';
+import { usePermission } from '@/hooks/usePermission';
 import { cn } from '@/lib/utils';
 
 export function ApprovalDetailPage() {
   const [remarks, setRemarks] = useState('');
+  const { can } = usePermission();
   const detail = MOCK_APPROVAL_DETAIL;
 
   return (
@@ -127,12 +129,18 @@ export function ApprovalDetailPage() {
             </div>
           </dl>
 
-          <div className="mt-8 flex gap-3">
-            <Button className="flex-1">Approve</Button>
-            <Button variant="destructive" className="flex-1">
-              Reject
-            </Button>
-          </div>
+          {can('approval:approve') ? (
+            <div className="mt-8 flex gap-3">
+              <Button className="flex-1">Approve</Button>
+              <Button variant="destructive" className="flex-1">
+                Reject
+              </Button>
+            </div>
+          ) : (
+            <p className="mt-6 text-sm text-slate-500">
+              You can view this workflow. Only assigned approvers can approve or reject.
+            </p>
+          )}
         </div>
       </div>
     </div>

@@ -4,20 +4,18 @@ import { DataTable } from '@/components/shared/DataTable';
 import { StatusBadge } from '@/components/shared/StatusBadge';
 import { Button } from '@/components/ui/button';
 import { MOCK_RFQS } from '@/data/mockData';
-import { USER_ROLES } from '@/types/auth.types';
-import { useAuth } from '@/hooks/useAuth';
+import { usePermission } from '@/hooks/usePermission';
 import type { Rfq } from '@/types/rfq.types';
 
 export function QuotationListPage() {
-  const { user } = useAuth();
-  const isVendor = user?.role === USER_ROLES.VENDOR;
+  const { can } = usePermission();
 
   return (
     <div>
       <PageHeader
         title="Quotations"
         subtitle={
-          isVendor
+          can('quotation:submit')
             ? 'View assigned RFQs and submit your quotations'
             : 'Review and compare vendor quotations'
         }
@@ -41,20 +39,16 @@ export function QuotationListPage() {
             header: 'Action',
             render: (row) => (
               <div className="flex flex-wrap gap-2">
-                {isVendor ? (
+                {can('quotation:submit') ? (
                   <Button variant="outline" size="sm" asChild>
                     <Link to={`/quotations/submit/${row.id}`}>Submit Quotation</Link>
                   </Button>
-                ) : (
-                  <>
-                    <Button variant="outline" size="sm" asChild>
-                      <Link to={`/quotations/compare/${row.id}`}>Compare</Link>
-                    </Button>
-                    <Button size="sm" asChild>
-                      <Link to={`/quotations/submit/${row.id}`}>View Submit Form</Link>
-                    </Button>
-                  </>
-                )}
+                ) : null}
+                {can('quotation:compare') ? (
+                  <Button variant="outline" size="sm" asChild>
+                    <Link to={`/quotations/compare/${row.id}`}>Compare</Link>
+                  </Button>
+                ) : null}
               </div>
             ),
           },

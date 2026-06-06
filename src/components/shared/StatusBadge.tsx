@@ -1,6 +1,16 @@
 import { cn } from '@/lib/utils';
 
-type StatusVariant = 'active' | 'pending' | 'blocked' | 'paid' | 'overdue' | 'draft' | 'published' | 'approved' | 'rejected';
+type StatusVariant =
+  | 'active'
+  | 'pending'
+  | 'blocked'
+  | 'paid'
+  | 'overdue'
+  | 'draft'
+  | 'published'
+  | 'approved'
+  | 'rejected'
+  | 'delivered';
 
 interface StatusBadgeProps {
   status: string;
@@ -17,6 +27,7 @@ const VARIANT_CLASSES: Record<StatusVariant, string> = {
   overdue: 'border-red-200 bg-red-50 text-red-700',
   draft: 'border-slate-200 bg-slate-100 text-slate-600',
   published: 'border-blue-200 bg-blue-50 text-blue-700',
+  delivered: 'border-emerald-200 bg-emerald-50 text-emerald-700',
 };
 
 function inferVariant(status: string): StatusVariant {

@@ -1,5 +1,5 @@
 import { Navigate, Route, Routes } from 'react-router-dom';
-import { AuthenticatedLayout, RoleRoute } from '@/routes/RoleRoute';
+import { AuthenticatedLayout, PermissionRoute } from '@/routes/RoleRoute';
 import { LoginPage } from '@/pages/LoginPage';
 import { RegisterPage } from '@/pages/RegisterPage';
 import { DashboardPage } from '@/pages/DashboardPage';
@@ -16,7 +16,6 @@ import { InvoiceListPage, InvoiceDetailPage } from '@/pages/InvoicePages';
 import { ReportsPage } from '@/pages/ReportsPage';
 import { ActivityPage } from '@/pages/ActivityPage';
 import { useAuth } from '@/hooks/useAuth';
-import { USER_ROLES } from '@/types/auth.types';
 
 function PublicOnlyRoute({ children }: { children: React.ReactNode }) {
   const { user, isLoading } = useAuth();
@@ -24,7 +23,7 @@ function PublicOnlyRoute({ children }: { children: React.ReactNode }) {
   if (isLoading) {
     return (
       <div className="flex min-h-screen items-center justify-center bg-slate-50">
-        <div className="h-8 w-8 animate-spin rounded-full border-2 border-emerald-500 border-t-transparent" />
+        <div className="h-8 w-8 animate-spin rounded-full border-2 border-emerald-600 border-t-transparent" />
       </div>
     );
   }
@@ -35,18 +34,6 @@ function PublicOnlyRoute({ children }: { children: React.ReactNode }) {
 
   return <>{children}</>;
 }
-
-const PROCUREMENT_ROLES = [USER_ROLES.ADMIN, USER_ROLES.PROCUREMENT_OFFICER];
-const APPROVAL_ROLES = [
-  USER_ROLES.ADMIN,
-  USER_ROLES.PROCUREMENT_OFFICER,
-  USER_ROLES.APPROVER,
-];
-const REPORT_ROLES = [
-  USER_ROLES.ADMIN,
-  USER_ROLES.PROCUREMENT_OFFICER,
-  USER_ROLES.APPROVER,
-];
 
 export function AppRoutes() {
   return (
@@ -74,72 +61,107 @@ export function AppRoutes() {
         <Route
           path="/vendors"
           element={
-            <RoleRoute roles={PROCUREMENT_ROLES}>
+            <PermissionRoute permission="vendor:read">
               <VendorsPage />
-            </RoleRoute>
+            </PermissionRoute>
           }
         />
 
         <Route
           path="/rfqs"
           element={
-            <RoleRoute roles={PROCUREMENT_ROLES}>
+            <PermissionRoute permission="rfq:create">
               <RfqListPage />
-            </RoleRoute>
+            </PermissionRoute>
           }
         />
         <Route
           path="/rfqs/new"
           element={
-            <RoleRoute roles={PROCUREMENT_ROLES}>
+            <PermissionRoute permission="rfq:create">
               <CreateRfqPage />
-            </RoleRoute>
+            </PermissionRoute>
           }
         />
 
         <Route path="/quotations" element={<QuotationListPage />} />
-        <Route path="/quotations/submit/:rfqId" element={<SubmitQuotationPage />} />
+        <Route
+          path="/quotations/submit/:rfqId"
+          element={
+            <PermissionRoute permission="quotation:submit">
+              <SubmitQuotationPage />
+            </PermissionRoute>
+          }
+        />
         <Route
           path="/quotations/compare/:rfqId"
           element={
-            <RoleRoute roles={PROCUREMENT_ROLES}>
+            <PermissionRoute permission="quotation:compare">
               <CompareQuotationsPage />
-            </RoleRoute>
+            </PermissionRoute>
           }
         />
 
         <Route
           path="/approvals"
           element={
-            <RoleRoute roles={APPROVAL_ROLES}>
+            <PermissionRoute permission="approval:view">
               <ApprovalListPage />
-            </RoleRoute>
+            </PermissionRoute>
           }
         />
         <Route
           path="/approvals/:id"
           element={
-            <RoleRoute roles={APPROVAL_ROLES}>
+            <PermissionRoute permission="approval:view">
               <ApprovalDetailPage />
-            </RoleRoute>
+            </PermissionRoute>
           }
         />
 
-        <Route path="/purchase-orders" element={<PurchaseOrderListPage />} />
+        <Route
+          path="/purchase-orders"
+          element={
+            <PermissionRoute permission="po:read">
+              <PurchaseOrderListPage />
+            </PermissionRoute>
+          }
+        />
 
-        <Route path="/invoices" element={<InvoiceListPage />} />
-        <Route path="/invoices/:id" element={<InvoiceDetailPage />} />
+        <Route
+          path="/invoices"
+          element={
+            <PermissionRoute permission="invoice:read">
+              <InvoiceListPage />
+            </PermissionRoute>
+          }
+        />
+        <Route
+          path="/invoices/:id"
+          element={
+            <PermissionRoute permission="invoice:read">
+              <InvoiceDetailPage />
+            </PermissionRoute>
+          }
+        />
 
         <Route
           path="/reports"
           element={
-            <RoleRoute roles={REPORT_ROLES}>
+            <PermissionRoute permission="reports:view">
               <ReportsPage />
-            </RoleRoute>
+            </PermissionRoute>
           }
         />
 
-        <Route path="/activity" element={<ActivityPage />} />
+        <Route
+          path="/activity"
+          element={
+            <PermissionRoute permission="activity:read">
+              <ActivityPage />
+            </PermissionRoute>
+          }
+        />
 
         <Route path="*" element={<Navigate to="/dashboard" replace />} />
       </Route>

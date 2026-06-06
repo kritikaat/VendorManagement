@@ -6,6 +6,7 @@ import { Button } from '@/components/ui/button';
 import { MOCK_INVOICES } from '@/data/mockData';
 import { DataTable } from '@/components/shared/DataTable';
 import { formatNumber } from '@/lib/formatCurrency';
+import { usePermission } from '@/hooks/usePermission';
 import type { Invoice, InvoiceStatus } from '@/types/invoice.types';
 
 export function InvoiceListPage() {
@@ -52,6 +53,7 @@ export function InvoiceListPage() {
 }
 
 export function InvoiceDetailPage() {
+  const { can } = usePermission();
   const invoice = {
     ...MOCK_INVOICES[0]!,
     detail: {
@@ -186,9 +188,11 @@ export function InvoiceDetailPage() {
             <span className="text-sm text-muted-foreground">Status</span>
             <StatusBadge status="Pending Payment" variant="pending" />
           </div>
-          <button type="button" className="text-sm font-semibold text-blue-600 hover:underline">
-            Mark as Paid
-          </button>
+          {can('invoice:mark-paid') ? (
+            <button type="button" className="text-sm font-semibold text-emerald-700 hover:underline">
+              Mark as Paid
+            </button>
+          ) : null}
         </div>
       </div>
     </div>
