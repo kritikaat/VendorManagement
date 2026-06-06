@@ -7,7 +7,7 @@ import { Label } from '@/components/ui/label';
 import { StatusBadge } from '@/components/shared/StatusBadge';
 import { vendorsApi, type CreateVendorPayload } from '@/api/vendors.api';
 import { queryKeys } from '@/api/queryKeys';
-import type { Vendor, VendorStatus } from '@/types/vendor.types';
+import type { VendorStatus } from '@/types/vendor.types';
 
 interface DialogShellProps {
   title: string;

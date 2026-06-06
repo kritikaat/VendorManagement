@@ -11,17 +11,6 @@ export type LoginFormValues = z.infer<typeof loginSchema>;
 const GST_REGEX = /^[0-9]{2}[A-Z]{5}[0-9]{4}[A-Z]{1}[1-9A-Z]{1}Z[0-9A-Z]{1}$/;
 const PHONE_REGEX = /^[0-9]{10}$/;
 
-const vendorProfileSchema = z.object({
-  companyName: z.string().min(1, 'Company name is required'),
-  category: z.string().min(1, 'Category is required'),
-  GSTNumber: z
-    .string()
-    .regex(GST_REGEX, 'Enter a valid 15-character GST number'),
-  address: z.string().min(1, 'Address is required'),
-  city: z.string().min(1, 'City is required'),
-  state: z.string().min(1, 'State is required'),
-});
-
 export const registerSchema = z
   .object({
     firstName: z.string().min(1, 'First name is required'),
