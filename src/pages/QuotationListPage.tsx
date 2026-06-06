@@ -1,5 +1,5 @@
 import { Link } from 'react-router-dom';
-import { useQuery } from '@tanstack/react-query';
+import { useQuery, useQueries } from '@tanstack/react-query';
 import { PageHeader } from '@/components/layout/PageHeader';
 import { PageState } from '@/components/shared/PageState';
 import { DataTable } from '@/components/shared/DataTable';
@@ -29,11 +29,26 @@ export function QuotationListPage() {
     enabled: isVendor,
   });
 
-  const officerQuotationsQuery = useQuery({
-    queryKey: queryKeys.quotations.list({ status: 'submitted' }),
-    queryFn: () => quotationsApi.list({ status: 'submitted', limit: 100 }),
+  // For admin/officer: fetch all RFQs first, then quotations per RFQ in parallel
+  const allRfqsQuery = useQuery({
+    queryKey: queryKeys.rfqs.list('all'),
+    queryFn: () => rfqsApi.list({ limit: 100 }),
     enabled: !isVendor,
   });
+
+  const rfqIds = allRfqsQuery.data?.items.map((r) => r.id) ?? [];
+
+  const perRfqQueries = useQueries({
+    queries: rfqIds.map((rfqId) => ({
+      queryKey: queryKeys.quotations.byRfq(rfqId),
+      queryFn: () => quotationsApi.listByRfq(rfqId),
+      enabled: !isVendor && rfqIds.length > 0,
+    })),
+  });
+
+  const officerQuotations: QuotationListItem[] = perRfqQueries.flatMap((q) => q.data ?? []);
+  const officerLoading = allRfqsQuery.isLoading || perRfqQueries.some((q) => q.isLoading);
+  const officerError = allRfqsQuery.error ?? perRfqQueries.find((q) => q.error)?.error ?? null;
 
   if (isVendor) {
     const rfqs = rfqQuery.data?.items ?? [];
@@ -97,14 +112,14 @@ export function QuotationListPage() {
     );
   }
 
-  const quotations = officerQuotationsQuery.data?.items ?? [];
+  const quotations = officerQuotations;
 
   return (
     <div>
       <PageHeader title="Quotations" subtitle="Review submitted vendor quotations" />
       <PageState
-        isLoading={officerQuotationsQuery.isLoading}
-        error={officerQuotationsQuery.error}
+        isLoading={officerLoading}
+        error={officerError}
         isEmpty={!quotations.length}
       >
         <DataTable<QuotationListItem>

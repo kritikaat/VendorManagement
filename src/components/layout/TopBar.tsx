@@ -14,7 +14,7 @@ export function TopBar() {
 
   const handleLogout = () => {
     logout();
-    navigate('/login');
+    navigate('/');
   };
 
   return (
