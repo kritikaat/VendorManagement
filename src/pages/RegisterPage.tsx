@@ -59,14 +59,7 @@ export function RegisterPage() {
       password: '',
       country: 'India',
       additionalInfo: '',
-      vendorProfile: {
-        companyName: '',
-        category: '',
-        GSTNumber: '',
-        address: '',
-        city: '',
-        state: '',
-      },
+      // Don't set vendorProfile default values - let it be undefined for non-vendors
     },
   });
 
@@ -74,11 +67,24 @@ export function RegisterPage() {
   const isVendorRegistration = selectedRole === USER_ROLES.VENDOR;
 
   const onSubmit = async (values: RegisterFormValues) => {
+    console.log('Form submitted with values:', values);
     setError(null);
+    
+    // Clean up the payload - remove vendorProfile if not a vendor
+    const payload = { ...values };
+    if (payload.role !== USER_ROLES.VENDOR) {
+      delete payload.vendorProfile;
+    }
+    
+    console.log('Cleaned payload to send:', payload);
+    
     try {
-      await registerUser(values);
+      console.log('Calling registerUser API...');
+      await registerUser(payload);
+      console.log('Registration successful, navigating to dashboard...');
       navigate('/dashboard');
     } catch (err) {
+      console.error('Registration error:', err);
       setError(err instanceof Error ? err.message : 'Registration failed. Please try again.');
     }
   };
@@ -310,6 +316,20 @@ export function RegisterPage() {
         </div>
 
         {error ? <p className="text-sm text-red-400">{error}</p> : null}
+
+        {/* Debug: Show all validation errors */}
+        {Object.keys(errors).length > 0 && (
+          <div className="rounded-md bg-red-50 p-3 text-sm text-red-800">
+            <p className="font-semibold">Form validation errors:</p>
+            <ul className="mt-1 list-inside list-disc">
+              {Object.entries(errors).map(([field, error]) => (
+                <li key={field}>
+                  {field}: {error?.message?.toString() || 'Invalid value'}
+                </li>
+              ))}
+            </ul>
+          </div>
+        )}
 
         <Button type="submit" className="w-full" disabled={isSubmitting}>
           {isSubmitting ? 'Creating account...' : 'Register'}

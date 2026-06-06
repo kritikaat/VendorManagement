@@ -21,6 +21,7 @@ export const api = axios.create({
 });
 
 api.interceptors.request.use((config) => {
+  console.log(`API Request: ${config.method?.toUpperCase()} ${config.url}`);
   const raw = localStorage.getItem(STORAGE_KEY);
   if (raw) {
     try {
@@ -36,10 +37,20 @@ api.interceptors.request.use((config) => {
 });
 
 api.interceptors.response.use(
-  (response) => response,
+  (response) => {
+    console.log(`API Response: ${response.status} ${response.config.url}`);
+    return response;
+  },
   (error) => {
     const status = error.response?.status as number | undefined;
     const body = error.response?.data as ApiErrorBody | undefined;
+
+    console.error('API Error:', {
+      url: error.config?.url,
+      status,
+      message: body?.message || error.message,
+      data: body,
+    });
 
     if (status === 401 && !error.config?.url?.includes('/auth/login')) {
       localStorage.removeItem(STORAGE_KEY);

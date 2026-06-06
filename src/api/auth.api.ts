@@ -44,23 +44,43 @@ export const authApi = {
   },
 
   signup: async (payload: RegisterPayload) => {
+    console.log('Auth API - signup called with payload:', {
+      ...payload,
+      password: '[REDACTED]',
+    });
+    
     const body: Record<string, unknown> = {
       firstName: payload.firstName,
       lastName: payload.lastName,
       email: payload.email,
       password: payload.password,
-      phone: payload.phone,
-      country: payload.country,
       role: payload.role,
-      photo: payload.photo,
-      additionalInfo: payload.additionalInfo,
     };
+
+    // Only add optional fields if they exist
+    if (payload.phone) body.phone = payload.phone;
+    if (payload.country) body.country = payload.country;
+    if (payload.photo) body.photo = payload.photo;
+    if (payload.additionalInfo) body.additionalInfo = payload.additionalInfo;
+    
+    // Only add vendorProfile if role is VENDOR and vendorProfile exists
     if (payload.role === USER_ROLES.VENDOR && payload.vendorProfile) {
       body.vendorProfile = payload.vendorProfile;
     }
 
-    const data = await unwrap<AuthPayload>(api.post(ENDPOINTS.auth.signup, body));
-    return { user: mapUser(data.user), token: data.token };
+    console.log('Auth API - sending body to backend:', {
+      ...body,
+      password: '[REDACTED]',
+    });
+
+    try {
+      const data = await unwrap<AuthPayload>(api.post(ENDPOINTS.auth.signup, body));
+      console.log('Auth API - signup successful, received data');
+      return { user: mapUser(data.user), token: data.token };
+    } catch (error) {
+      console.error('Auth API - signup failed:', error);
+      throw error;
+    }
   },
 
   me: async () => {

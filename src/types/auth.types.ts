@@ -1,7 +1,7 @@
 export const USER_ROLES = {
   ADMIN: 'admin',
   PROCUREMENT_OFFICER: 'procurement_officer',
-  APPROVER: 'approver',
+  APPROVER: 'manager',
   VENDOR: 'vendor',
 } as const;
 

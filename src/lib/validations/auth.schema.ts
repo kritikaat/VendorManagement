@@ -41,14 +41,27 @@ export const registerSchema = z
         USER_ROLES.PROCUREMENT_OFFICER,
         USER_ROLES.APPROVER,
         USER_ROLES.VENDOR,
-      ])
-      .optional(),
+      ], {
+        errorMap: () => ({ message: 'Please select a role' }),
+      }),
     country: z.string().optional(),
     additionalInfo: z.string().optional(),
-    vendorProfile: vendorProfileSchema.optional(),
+    vendorProfile: z
+      .object({
+        companyName: z.string().min(1, 'Company name is required'),
+        category: z.string().min(1, 'Category is required'),
+        GSTNumber: z.string().regex(GST_REGEX, 'Enter a valid 15-character GST number'),
+        address: z.string().min(1, 'Address is required'),
+        city: z.string().min(1, 'City is required'),
+        state: z.string().min(1, 'State is required'),
+      })
+      .optional(),
   })
   .superRefine((data, ctx) => {
-    if (data.role !== USER_ROLES.VENDOR) return;
+    // Only validate vendor-specific fields if role is VENDOR
+    if (data.role !== USER_ROLES.VENDOR) {
+      return;
+    }
 
     if (!data.phone || !PHONE_REGEX.test(data.phone)) {
       ctx.addIssue({
@@ -63,6 +76,56 @@ export const registerSchema = z
         code: z.ZodIssueCode.custom,
         message: 'Company details are required for vendor registration',
         path: ['vendorProfile'],
+      });
+      return;
+    }
+
+    // Validate each vendor profile field
+    if (!data.vendorProfile.companyName) {
+      ctx.addIssue({
+        code: z.ZodIssueCode.custom,
+        message: 'Company name is required',
+        path: ['vendorProfile', 'companyName'],
+      });
+    }
+
+    if (!data.vendorProfile.category) {
+      ctx.addIssue({
+        code: z.ZodIssueCode.custom,
+        message: 'Category is required',
+        path: ['vendorProfile', 'category'],
+      });
+    }
+
+    if (!data.vendorProfile.GSTNumber || !GST_REGEX.test(data.vendorProfile.GSTNumber)) {
+      ctx.addIssue({
+        code: z.ZodIssueCode.custom,
+        message: 'Enter a valid 15-character GST number',
+        path: ['vendorProfile', 'GSTNumber'],
+      });
+    }
+
+    if (!data.vendorProfile.address) {
+      ctx.addIssue({
+        code: z.ZodIssueCode.custom,
+        message: 'Address is required',
+        path: ['vendorProfile', 'address'],
+      });
+    }
+
+    if (!data.vendorProfile.city) {
+      ctx.addIssue({
+        code: z.ZodIssueCode.custom,
+        message: 'City is required',
+        path: ['vendorProfile', 'city'],
+      });
+    }
+
+    if (!data.vendorProfile.state) {
+      ctx.addIssue({
+        code: z.ZodIssueCode.custom,
+        message: 'State is required',
+        path: ['vendorProfile', 'state'],
       });
     }
   });
