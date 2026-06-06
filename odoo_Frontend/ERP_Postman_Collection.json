@@ -1,0 +1,2174 @@
+{
+  "info": {
+    "_postman_id": "erp-role-based-collection-id-9988",
+    "name": "ERP Role-Based API Suite",
+    "description": "Enterprise grade, fully structured Postman collection with strict role separations: Shared APIs, Admin APIs, Vendor APIs, and Employee APIs.",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "item": [
+    {
+      "name": "ERP - Shared APIs",
+      "description": "Shared APIs accessible by multiple roles with general tokens.",
+      "item": [
+        {
+          "name": "Shared - Auth - Register",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{token}}"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"firstName\": \"Jane\",\n  \"lastName\": \"Doe\",\n  \"email\": \"jane.doe@erp.com\",\n  \"password\": \"Password@123\",\n  \"role\": \"employee\"\n}"
+            },
+            "url": {
+              "raw": "{{base_url}}/auth/register",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "auth",
+                "register"
+              ]
+            },
+            "description": "Required Role: Shared\nModule: Auth\nEvent Tag: \"USER_REGISTERED\""
+          }
+        },
+        {
+          "name": "Shared - Auth - Login",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{token}}"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"email\": \"jane.doe@erp.com\",\n  \"password\": \"Password@123\"\n}"
+            },
+            "url": {
+              "raw": "{{base_url}}/auth/login",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "auth",
+                "login"
+              ]
+            },
+            "description": "Required Role: Shared\nModule: Auth\nEvent Tag: \"USER_LOGGED_IN\""
+          }
+        },
+        {
+          "name": "Shared - Auth - OTP Verify",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{token}}"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"email\": \"jane.doe@erp.com\",\n  \"otp\": \"123456\"\n}"
+            },
+            "url": {
+              "raw": "{{base_url}}/auth/otp-verify",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "auth",
+                "otp-verify"
+              ]
+            },
+            "description": "Required Role: Shared\nModule: Auth\nEvent Tag: \"OTP_VERIFIED\""
+          }
+        },
+        {
+          "name": "Shared - Auth - Refresh Token",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{token}}"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"refreshToken\": \"sample_refresh_token_here\"\n}"
+            },
+            "url": {
+              "raw": "{{base_url}}/auth/refresh-token",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "auth",
+                "refresh-token"
+              ]
+            },
+            "description": "Required Role: Shared\nModule: Auth\nEvent Tag: \"TOKEN_REFRESHED\""
+          }
+        },
+        {
+          "name": "Shared - Profile - Get Profile",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{token}}"
+              }
+            ],
+            "url": {
+              "raw": "{{base_url}}/profile",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "profile"
+              ]
+            },
+            "description": "Required Role: Shared\nModule: Profile\nEvent Tag: \"PROFILE_FETCHED\""
+          }
+        },
+        {
+          "name": "Shared - Notifications - List",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{token}}"
+              }
+            ],
+            "url": {
+              "raw": "{{base_url}}/notifications",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "notifications"
+              ]
+            },
+            "description": "Required Role: Shared\nModule: Notifications\nEvent Tag: \"NOTIFICATIONS_FETCHED\""
+          }
+        },
+        {
+          "name": "Shared - Files - Upload Attachment",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{token}}"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"fileName\": \"contract_draft.pdf\",\n  \"fileSize\": 2048576,\n  \"contentType\": \"application/pdf\"\n}"
+            },
+            "url": {
+              "raw": "{{base_url}}/files/upload",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "files",
+                "upload"
+              ]
+            },
+            "description": "Required Role: Shared\nModule: Files\nEvent Tag: \"FILE_UPLOADED\""
+          }
+        },
+        {
+          "name": "Shared - Auth - Logout",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{token}}"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{base_url}}/auth/logout",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "auth",
+                "logout"
+              ]
+            },
+            "description": "Required Role: Shared\nModule: Auth\nEvent Tag: \"USER_LOGGED_OUT\""
+          }
+        }
+      ]
+    },
+    {
+      "name": "ERP - Admin APIs (20 endpoints)",
+      "description": "Administrative configuration and system management endpoints.",
+      "item": [
+        {
+          "name": "User Management",
+          "item": [
+            {
+              "name": "Admin - User - Create User",
+              "request": {
+                "method": "POST",
+                "header": [
+                  {
+                    "key": "Authorization",
+                    "value": "Bearer {{admin_token}}"
+                  },
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  }
+                ],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"firstName\": \"John\",\n  \"lastName\": \"Smith\",\n  \"email\": \"john.smith@company.com\",\n  \"role\": \"employee\",\n  \"department\": \"Procurement\"\n}"
+                },
+                "url": {
+                  "raw": "{{base_url}}/admin/users",
+                  "host": [
+                    "{{base_url}}"
+                  ],
+                  "path": [
+                    "admin",
+                    "users"
+                  ]
+                },
+                "description": "Required Role: Admin\nModule: User\nEvent Tag: \"USER_CREATED\""
+              }
+            },
+            {
+              "name": "Admin - User - List Users",
+              "request": {
+                "method": "GET",
+                "header": [
+                  {
+                    "key": "Authorization",
+                    "value": "Bearer {{admin_token}}"
+                  }
+                ],
+                "url": {
+                  "raw": "{{base_url}}/admin/users",
+                  "host": [
+                    "{{base_url}}"
+                  ],
+                  "path": [
+                    "admin",
+                    "users"
+                  ]
+                },
+                "description": "Required Role: Admin\nModule: User\nEvent Tag: \"USERS_LISTED\""
+              }
+            },
+            {
+              "name": "Admin - User - Get User",
+              "request": {
+                "method": "GET",
+                "header": [
+                  {
+                    "key": "Authorization",
+                    "value": "Bearer {{admin_token}}"
+                  }
+                ],
+                "url": {
+                  "raw": "{{base_url}}/admin/users/{{userId}}",
+                  "host": [
+                    "{{base_url}}"
+                  ],
+                  "path": [
+                    "admin",
+                    "users",
+                    "{{userId}}"
+                  ]
+                },
+                "description": "Required Role: Admin\nModule: User\nEvent Tag: \"USER_FETCHED\""
+              }
+            },
+            {
+              "name": "Admin - User - Update User",
+              "request": {
+                "method": "PUT",
+                "header": [
+                  {
+                    "key": "Authorization",
+                    "value": "Bearer {{admin_token}}"
+                  },
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  }
+                ],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"status\": \"Active\",\n  \"department\": \"Finance\"\n}"
+                },
+                "url": {
+                  "raw": "{{base_url}}/admin/users/{{userId}}",
+                  "host": [
+                    "{{base_url}}"
+                  ],
+                  "path": [
+                    "admin",
+                    "users",
+                    "{{userId}}"
+                  ]
+                },
+                "description": "Required Role: Admin\nModule: User\nEvent Tag: \"USER_UPDATED\""
+              }
+            },
+            {
+              "name": "Admin - User - Delete User",
+              "request": {
+                "method": "DELETE",
+                "header": [
+                  {
+                    "key": "Authorization",
+                    "value": "Bearer {{admin_token}}"
+                  }
+                ],
+                "url": {
+                  "raw": "{{base_url}}/admin/users/{{userId}}",
+                  "host": [
+                    "{{base_url}}"
+                  ],
+                  "path": [
+                    "admin",
+                    "users",
+                    "{{userId}}"
+                  ]
+                },
+                "description": "Required Role: Admin\nModule: User\nEvent Tag: \"USER_DELETED\""
+              }
+            }
+          ]
+        },
+        {
+          "name": "Vendor Management",
+          "item": [
+            {
+              "name": "Admin - Vendor - Create Vendor",
+              "request": {
+                "method": "POST",
+                "header": [
+                  {
+                    "key": "Authorization",
+                    "value": "Bearer {{admin_token}}"
+                  },
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  }
+                ],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"companyName\": \"Apex Logistics\",\n  \"contactEmail\": \"contact@apex.com\",\n  \"phone\": \"9988776655\"\n}"
+                },
+                "url": {
+                  "raw": "{{base_url}}/admin/vendors",
+                  "host": [
+                    "{{base_url}}"
+                  ],
+                  "path": [
+                    "admin",
+                    "vendors"
+                  ]
+                },
+                "description": "Required Role: Admin\nModule: Vendor\nEvent Tag: \"VENDOR_CREATED\""
+              }
+            },
+            {
+              "name": "Admin - Vendor - List Vendors",
+              "request": {
+                "method": "GET",
+                "header": [
+                  {
+                    "key": "Authorization",
+                    "value": "Bearer {{admin_token}}"
+                  }
+                ],
+                "url": {
+                  "raw": "{{base_url}}/admin/vendors",
+                  "host": [
+                    "{{base_url}}"
+                  ],
+                  "path": [
+                    "admin",
+                    "vendors"
+                  ]
+                },
+                "description": "Required Role: Admin\nModule: Vendor\nEvent Tag: \"VENDORS_LISTED\""
+              }
+            },
+            {
+              "name": "Admin - Vendor - Get Vendor",
+              "request": {
+                "method": "GET",
+                "header": [
+                  {
+                    "key": "Authorization",
+                    "value": "Bearer {{admin_token}}"
+                  }
+                ],
+                "url": {
+                  "raw": "{{base_url}}/admin/vendors/{{vendorId}}",
+                  "host": [
+                    "{{base_url}}"
+                  ],
+                  "path": [
+                    "admin",
+                    "vendors",
+                    "{{vendorId}}"
+                  ]
+                },
+                "description": "Required Role: Admin\nModule: Vendor\nEvent Tag: \"VENDOR_FETCHED\""
+              }
+            },
+            {
+              "name": "Admin - Vendor - Update Vendor",
+              "request": {
+                "method": "PUT",
+                "header": [
+                  {
+                    "key": "Authorization",
+                    "value": "Bearer {{admin_token}}"
+                  },
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  }
+                ],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"status\": \"Approved\"\n}"
+                },
+                "url": {
+                  "raw": "{{base_url}}/admin/vendors/{{vendorId}}",
+                  "host": [
+                    "{{base_url}}"
+                  ],
+                  "path": [
+                    "admin",
+                    "vendors",
+                    "{{vendorId}}"
+                  ]
+                },
+                "description": "Required Role: Admin\nModule: Vendor\nEvent Tag: \"VENDOR_APPROVED\""
+              }
+            },
+            {
+              "name": "Admin - Vendor - Delete Vendor",
+              "request": {
+                "method": "DELETE",
+                "header": [
+                  {
+                    "key": "Authorization",
+                    "value": "Bearer {{admin_token}}"
+                  }
+                ],
+                "url": {
+                  "raw": "{{base_url}}/admin/vendors/{{vendorId}}",
+                  "host": [
+                    "{{base_url}}"
+                  ],
+                  "path": [
+                    "admin",
+                    "vendors",
+                    "{{vendorId}}"
+                  ]
+                },
+                "description": "Required Role: Admin\nModule: Vendor\nEvent Tag: \"VENDOR_DELETED\""
+              }
+            }
+          ]
+        },
+        {
+          "name": "Approvals",
+          "item": [
+            {
+              "name": "Admin - Approval - Approve Request",
+              "request": {
+                "method": "PUT",
+                "header": [
+                  {
+                    "key": "Authorization",
+                    "value": "Bearer {{admin_token}}"
+                  },
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  }
+                ],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"remarks\": \"Budget aligned\"\n}"
+                },
+                "url": {
+                  "raw": "{{base_url}}/admin/approvals/{{requestId}}/approve",
+                  "host": [
+                    "{{base_url}}"
+                  ],
+                  "path": [
+                    "admin",
+                    "approvals",
+                    "{{requestId}}",
+                    "approve"
+                  ]
+                },
+                "description": "Required Role: Admin\nModule: Approval\nEvent Tag: \"REQUEST_APPROVED\""
+              }
+            },
+            {
+              "name": "Admin - Approval - Reject Request",
+              "request": {
+                "method": "PUT",
+                "header": [
+                  {
+                    "key": "Authorization",
+                    "value": "Bearer {{admin_token}}"
+                  },
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  }
+                ],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"remarks\": \"Outside limits\"\n}"
+                },
+                "url": {
+                  "raw": "{{base_url}}/admin/approvals/{{requestId}}/reject",
+                  "host": [
+                    "{{base_url}}"
+                  ],
+                  "path": [
+                    "admin",
+                    "approvals",
+                    "{{requestId}}",
+                    "reject"
+                  ]
+                },
+                "description": "Required Role: Admin\nModule: Approval\nEvent Tag: \"REQUEST_REJECTED\""
+              }
+            }
+          ]
+        },
+        {
+          "name": "Reports",
+          "item": [
+            {
+              "name": "Admin - Report - Spend Analysis",
+              "request": {
+                "method": "GET",
+                "header": [
+                  {
+                    "key": "Authorization",
+                    "value": "Bearer {{admin_token}}"
+                  }
+                ],
+                "url": {
+                  "raw": "{{base_url}}/admin/reports/spend",
+                  "host": [
+                    "{{base_url}}"
+                  ],
+                  "path": [
+                    "admin",
+                    "reports",
+                    "spend"
+                  ]
+                },
+                "description": "Required Role: Admin\nModule: Report\nEvent Tag: \"REPORT_SPEND_GENERATED\""
+              }
+            },
+            {
+              "name": "Admin - Report - Vendor Performance",
+              "request": {
+                "method": "GET",
+                "header": [
+                  {
+                    "key": "Authorization",
+                    "value": "Bearer {{admin_token}}"
+                  }
+                ],
+                "url": {
+                  "raw": "{{base_url}}/admin/reports/vendor-performance",
+                  "host": [
+                    "{{base_url}}"
+                  ],
+                  "path": [
+                    "admin",
+                    "reports",
+                    "vendor-performance"
+                  ]
+                },
+                "description": "Required Role: Admin\nModule: Report\nEvent Tag: \"REPORT_PERFORMANCE_GENERATED\""
+              }
+            }
+          ]
+        },
+        {
+          "name": "Settings",
+          "item": [
+            {
+              "name": "Admin - Setting - Get Config",
+              "request": {
+                "method": "GET",
+                "header": [
+                  {
+                    "key": "Authorization",
+                    "value": "Bearer {{admin_token}}"
+                  }
+                ],
+                "url": {
+                  "raw": "{{base_url}}/admin/settings/config",
+                  "host": [
+                    "{{base_url}}"
+                  ],
+                  "path": [
+                    "admin",
+                    "settings",
+                    "config"
+                  ]
+                },
+                "description": "Required Role: Admin\nModule: Setting\nEvent Tag: \"CONFIG_FETCHED\""
+              }
+            },
+            {
+              "name": "Admin - Setting - Update Config",
+              "request": {
+                "method": "PUT",
+                "header": [
+                  {
+                    "key": "Authorization",
+                    "value": "Bearer {{admin_token}}"
+                  },
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  }
+                ],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"maxPurchaseLimit\": 500000,\n  \"currency\": \"USD\"\n}"
+                },
+                "url": {
+                  "raw": "{{base_url}}/admin/settings/config",
+                  "host": [
+                    "{{base_url}}"
+                  ],
+                  "path": [
+                    "admin",
+                    "settings",
+                    "config"
+                  ]
+                },
+                "description": "Required Role: Admin\nModule: Setting\nEvent Tag: \"CONFIG_UPDATED\""
+              }
+            }
+          ]
+        },
+        {
+          "name": "System Operations",
+          "item": [
+            {
+              "name": "Admin - Contract - Get Contracts",
+              "request": {
+                "method": "GET",
+                "header": [
+                  {
+                    "key": "Authorization",
+                    "value": "Bearer {{admin_token}}"
+                  }
+                ],
+                "url": {
+                  "raw": "{{base_url}}/admin/contracts",
+                  "host": [
+                    "{{base_url}}"
+                  ],
+                  "path": [
+                    "admin",
+                    "contracts"
+                  ]
+                },
+                "description": "Required Role: Admin\nModule: Contract\nEvent Tag: \"CONTRACTS_LISTED\""
+              }
+            },
+            {
+              "name": "Admin - Payment - Monitor Payments",
+              "request": {
+                "method": "GET",
+                "header": [
+                  {
+                    "key": "Authorization",
+                    "value": "Bearer {{admin_token}}"
+                  }
+                ],
+                "url": {
+                  "raw": "{{base_url}}/admin/payments",
+                  "host": [
+                    "{{base_url}}"
+                  ],
+                  "path": [
+                    "admin",
+                    "payments"
+                  ]
+                },
+                "description": "Required Role: Admin\nModule: Payment\nEvent Tag: \"PAYMENTS_MONITORED\""
+              }
+            },
+            {
+              "name": "Admin - Audit - View Logs",
+              "request": {
+                "method": "GET",
+                "header": [
+                  {
+                    "key": "Authorization",
+                    "value": "Bearer {{admin_token}}"
+                  }
+                ],
+                "url": {
+                  "raw": "{{base_url}}/admin/audit-logs",
+                  "host": [
+                    "{{base_url}}"
+                  ],
+                  "path": [
+                    "admin",
+                    "audit-logs"
+                  ]
+                },
+                "description": "Required Role: Admin\nModule: Audit\nEvent Tag: \"AUDIT_LOGS_VIEWED\""
+              }
+            },
+            {
+              "name": "Admin - Analytics - Dashboard Stats",
+              "request": {
+                "method": "GET",
+                "header": [
+                  {
+                    "key": "Authorization",
+                    "value": "Bearer {{admin_token}}"
+                  }
+                ],
+                "url": {
+                  "raw": "{{base_url}}/admin/analytics/dashboard",
+                  "host": [
+                    "{{base_url}}"
+                  ],
+                  "path": [
+                    "admin",
+                    "analytics",
+                    "dashboard"
+                  ]
+                },
+                "description": "Required Role: Admin\nModule: Analytics\nEvent Tag: \"ADMIN_DASHBOARD_STATS_FETCHED\""
+              }
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "ERP - Vendor APIs (20 endpoints)",
+      "description": "Vendor portal actions, order completions, and product additions.",
+      "item": [
+        {
+          "name": "Products",
+          "item": [
+            {
+              "name": "Vendor - Product - Add Product",
+              "request": {
+                "method": "POST",
+                "header": [
+                  {
+                    "key": "Authorization",
+                    "value": "Bearer {{vendor_token}}"
+                  },
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  }
+                ],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"name\": \"High-Speed Router\",\n  \"sku\": \"NET-HSR-001\",\n  \"price\": 15000\n}"
+                },
+                "url": {
+                  "raw": "{{base_url}}/vendor/products",
+                  "host": [
+                    "{{base_url}}"
+                  ],
+                  "path": [
+                    "vendor",
+                    "products"
+                  ]
+                },
+                "description": "Required Role: Vendor\nModule: Product\nEvent Tag: \"PRODUCT_ADDED\""
+              }
+            },
+            {
+              "name": "Vendor - Product - List Products",
+              "request": {
+                "method": "GET",
+                "header": [
+                  {
+                    "key": "Authorization",
+                    "value": "Bearer {{vendor_token}}"
+                  }
+                ],
+                "url": {
+                  "raw": "{{base_url}}/vendor/products",
+                  "host": [
+                    "{{base_url}}"
+                  ],
+                  "path": [
+                    "vendor",
+                    "products"
+                  ]
+                },
+                "description": "Required Role: Vendor\nModule: Product\nEvent Tag: \"PRODUCTS_LISTED\""
+              }
+            },
+            {
+              "name": "Vendor - Product - Update Product",
+              "request": {
+                "method": "PUT",
+                "header": [
+                  {
+                    "key": "Authorization",
+                    "value": "Bearer {{vendor_token}}"
+                  },
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  }
+                ],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"price\": 14500\n}"
+                },
+                "url": {
+                  "raw": "{{base_url}}/vendor/products/{{productId}}",
+                  "host": [
+                    "{{base_url}}"
+                  ],
+                  "path": [
+                    "vendor",
+                    "products",
+                    "{{productId}}"
+                  ]
+                },
+                "description": "Required Role: Vendor\nModule: Product\nEvent Tag: \"PRODUCT_UPDATED\""
+              }
+            },
+            {
+              "name": "Vendor - Product - Delete Product",
+              "request": {
+                "method": "DELETE",
+                "header": [
+                  {
+                    "key": "Authorization",
+                    "value": "Bearer {{vendor_token}}"
+                  }
+                ],
+                "url": {
+                  "raw": "{{base_url}}/vendor/products/{{productId}}",
+                  "host": [
+                    "{{base_url}}"
+                  ],
+                  "path": [
+                    "vendor",
+                    "products",
+                    "{{productId}}"
+                  ]
+                },
+                "description": "Required Role: Vendor\nModule: Product\nEvent Tag: \"PRODUCT_DELETED\""
+              }
+            }
+          ]
+        },
+        {
+          "name": "Inventory",
+          "item": [
+            {
+              "name": "Vendor - Inventory - Get Inventory",
+              "request": {
+                "method": "GET",
+                "header": [
+                  {
+                    "key": "Authorization",
+                    "value": "Bearer {{vendor_token}}"
+                  }
+                ],
+                "url": {
+                  "raw": "{{base_url}}/vendor/inventory",
+                  "host": [
+                    "{{base_url}}"
+                  ],
+                  "path": [
+                    "vendor",
+                    "inventory"
+                  ]
+                },
+                "description": "Required Role: Vendor\nModule: Inventory\nEvent Tag: \"INVENTORY_FETCHED\""
+              }
+            },
+            {
+              "name": "Vendor - Inventory - Update Stock",
+              "request": {
+                "method": "PUT",
+                "header": [
+                  {
+                    "key": "Authorization",
+                    "value": "Bearer {{vendor_token}}"
+                  },
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  }
+                ],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"sku\": \"NET-HSR-001\",\n  \"quantity\": 250\n}"
+                },
+                "url": {
+                  "raw": "{{base_url}}/vendor/inventory",
+                  "host": [
+                    "{{base_url}}"
+                  ],
+                  "path": [
+                    "vendor",
+                    "inventory"
+                  ]
+                },
+                "description": "Required Role: Vendor\nModule: Inventory\nEvent Tag: \"STOCK_UPDATED\""
+              }
+            }
+          ]
+        },
+        {
+          "name": "Orders",
+          "item": [
+            {
+              "name": "Vendor - Order - List Orders",
+              "request": {
+                "method": "GET",
+                "header": [
+                  {
+                    "key": "Authorization",
+                    "value": "Bearer {{vendor_token}}"
+                  }
+                ],
+                "url": {
+                  "raw": "{{base_url}}/vendor/orders",
+                  "host": [
+                    "{{base_url}}"
+                  ],
+                  "path": [
+                    "vendor",
+                    "orders"
+                  ]
+                },
+                "description": "Required Role: Vendor\nModule: Order\nEvent Tag: \"ORDERS_LISTED\""
+              }
+            },
+            {
+              "name": "Vendor - Order - Update Status",
+              "request": {
+                "method": "PUT",
+                "header": [
+                  {
+                    "key": "Authorization",
+                    "value": "Bearer {{vendor_token}}"
+                  },
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  }
+                ],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"status\": \"Shipped\"\n}"
+                },
+                "url": {
+                  "raw": "{{base_url}}/vendor/orders/{{orderId}}/status",
+                  "host": [
+                    "{{base_url}}"
+                  ],
+                  "path": [
+                    "vendor",
+                    "orders",
+                    "{{orderId}}",
+                    "status"
+                  ]
+                },
+                "description": "Required Role: Vendor\nModule: Order\nEvent Tag: \"ORDER_STATUS_UPDATED\""
+              }
+            }
+          ]
+        },
+        {
+          "name": "RFQ & Quotations",
+          "item": [
+            {
+              "name": "Vendor - RFQ - List RFQs",
+              "request": {
+                "method": "GET",
+                "header": [
+                  {
+                    "key": "Authorization",
+                    "value": "Bearer {{vendor_token}}"
+                  }
+                ],
+                "url": {
+                  "raw": "{{base_url}}/vendor/rfqs",
+                  "host": [
+                    "{{base_url}}"
+                  ],
+                  "path": [
+                    "vendor",
+                    "rfqs"
+                  ]
+                },
+                "description": "Required Role: Vendor\nModule: RFQ\nEvent Tag: \"RFQS_LISTED\""
+              }
+            },
+            {
+              "name": "Vendor - RFQ - View RFQ Details",
+              "request": {
+                "method": "GET",
+                "header": [
+                  {
+                    "key": "Authorization",
+                    "value": "Bearer {{vendor_token}}"
+                  }
+                ],
+                "url": {
+                  "raw": "{{base_url}}/vendor/rfqs/{{rfqId}}",
+                  "host": [
+                    "{{base_url}}"
+                  ],
+                  "path": [
+                    "vendor",
+                    "rfqs",
+                    "{{rfqId}}"
+                  ]
+                },
+                "description": "Required Role: Vendor\nModule: RFQ\nEvent Tag: \"RFQ_VIEWED\""
+              }
+            },
+            {
+              "name": "Vendor - Quotation - Submit Quotation",
+              "request": {
+                "method": "POST",
+                "header": [
+                  {
+                    "key": "Authorization",
+                    "value": "Bearer {{vendor_token}}"
+                  },
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  }
+                ],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"rfqId\": \"rfqId...\",\n  \"pricing\": 142000\n}"
+                },
+                "url": {
+                  "raw": "{{base_url}}/vendor/quotations",
+                  "host": [
+                    "{{base_url}}"
+                  ],
+                  "path": [
+                    "vendor",
+                    "quotations"
+                  ]
+                },
+                "description": "Required Role: Vendor\nModule: Quotation\nEvent Tag: \"QUOTATION_SUBMITTED\""
+              }
+            },
+            {
+              "name": "Vendor - Quotation - View Quotations",
+              "request": {
+                "method": "GET",
+                "header": [
+                  {
+                    "key": "Authorization",
+                    "value": "Bearer {{vendor_token}}"
+                  }
+                ],
+                "url": {
+                  "raw": "{{base_url}}/vendor/quotations",
+                  "host": [
+                    "{{base_url}}"
+                  ],
+                  "path": [
+                    "vendor",
+                    "quotations"
+                  ]
+                },
+                "description": "Required Role: Vendor\nModule: Quotation\nEvent Tag: \"QUOTATIONS_VIEWED\""
+              }
+            }
+          ]
+        },
+        {
+          "name": "Invoices & Payments",
+          "item": [
+            {
+              "name": "Vendor - Invoice - Upload Invoice",
+              "request": {
+                "method": "POST",
+                "header": [
+                  {
+                    "key": "Authorization",
+                    "value": "Bearer {{vendor_token}}"
+                  },
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  }
+                ],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"orderId\": \"orderId...\",\n  \"amount\": 142000,\n  \"pdfUrl\": \"http://cloudinary.com/invoice.pdf\"\n}"
+                },
+                "url": {
+                  "raw": "{{base_url}}/vendor/invoices",
+                  "host": [
+                    "{{base_url}}"
+                  ],
+                  "path": [
+                    "vendor",
+                    "invoices"
+                  ]
+                },
+                "description": "Required Role: Vendor\nModule: Invoice\nEvent Tag: \"INVOICE_UPLOADED\""
+              }
+            },
+            {
+              "name": "Vendor - Invoice - View Invoices",
+              "request": {
+                "method": "GET",
+                "header": [
+                  {
+                    "key": "Authorization",
+                    "value": "Bearer {{vendor_token}}"
+                  }
+                ],
+                "url": {
+                  "raw": "{{base_url}}/vendor/invoices",
+                  "host": [
+                    "{{base_url}}"
+                  ],
+                  "path": [
+                    "vendor",
+                    "invoices"
+                  ]
+                },
+                "description": "Required Role: Vendor\nModule: Invoice\nEvent Tag: \"INVOICES_VIEWED\""
+              }
+            },
+            {
+              "name": "Vendor - Payment - Track Payment",
+              "request": {
+                "method": "GET",
+                "header": [
+                  {
+                    "key": "Authorization",
+                    "value": "Bearer {{vendor_token}}"
+                  }
+                ],
+                "url": {
+                  "raw": "{{base_url}}/vendor/payments/{{paymentId}}",
+                  "host": [
+                    "{{base_url}}"
+                  ],
+                  "path": [
+                    "vendor",
+                    "payments",
+                    "{{paymentId}}"
+                  ]
+                },
+                "description": "Required Role: Vendor\nModule: Payment\nEvent Tag: \"PAYMENT_TRACKED\""
+              }
+            }
+          ]
+        },
+        {
+          "name": "Registration & Profile",
+          "item": [
+            {
+              "name": "Vendor - Registration - Submit Onboarding",
+              "request": {
+                "method": "POST",
+                "header": [
+                  {
+                    "key": "Authorization",
+                    "value": "Bearer {{vendor_token}}"
+                  },
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  }
+                ],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"gstin\": \"29AAACA0000A1Z1\",\n  \"address\": \"456 Business St\"\n}"
+                },
+                "url": {
+                  "raw": "{{base_url}}/vendor/onboarding",
+                  "host": [
+                    "{{base_url}}"
+                  ],
+                  "path": [
+                    "vendor",
+                    "onboarding"
+                  ]
+                },
+                "description": "Required Role: Vendor\nModule: Registration\nEvent Tag: \"ONBOARDING_SUBMITTED\""
+              }
+            },
+            {
+              "name": "Vendor - Profile - Get Profile",
+              "request": {
+                "method": "GET",
+                "header": [
+                  {
+                    "key": "Authorization",
+                    "value": "Bearer {{vendor_token}}"
+                  }
+                ],
+                "url": {
+                  "raw": "{{base_url}}/vendor/profile",
+                  "host": [
+                    "{{base_url}}"
+                  ],
+                  "path": [
+                    "vendor",
+                    "profile"
+                  ]
+                },
+                "description": "Required Role: Vendor\nModule: Profile\nEvent Tag: \"VENDOR_PROFILE_FETCHED\""
+              }
+            },
+            {
+              "name": "Vendor - Profile - Update Profile",
+              "request": {
+                "method": "PUT",
+                "header": [
+                  {
+                    "key": "Authorization",
+                    "value": "Bearer {{vendor_token}}"
+                  },
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  }
+                ],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"contactPhone\": \"9900990099\"\n}"
+                },
+                "url": {
+                  "raw": "{{base_url}}/vendor/profile",
+                  "host": [
+                    "{{base_url}}"
+                  ],
+                  "path": [
+                    "vendor",
+                    "profile"
+                  ]
+                },
+                "description": "Required Role: Vendor\nModule: Profile\nEvent Tag: \"VENDOR_PROFILE_UPDATED\""
+              }
+            },
+            {
+              "name": "Vendor - Contract - View Contracts",
+              "request": {
+                "method": "GET",
+                "header": [
+                  {
+                    "key": "Authorization",
+                    "value": "Bearer {{vendor_token}}"
+                  }
+                ],
+                "url": {
+                  "raw": "{{base_url}}/vendor/contracts",
+                  "host": [
+                    "{{base_url}}"
+                  ],
+                  "path": [
+                    "vendor",
+                    "contracts"
+                  ]
+                },
+                "description": "Required Role: Vendor\nModule: Contract\nEvent Tag: \"CONTRACT_VIEWED\""
+              }
+            },
+            {
+              "name": "Vendor - Dashboard - Get Stats",
+              "request": {
+                "method": "GET",
+                "header": [
+                  {
+                    "key": "Authorization",
+                    "value": "Bearer {{vendor_token}}"
+                  }
+                ],
+                "url": {
+                  "raw": "{{base_url}}/vendor/dashboard/stats",
+                  "host": [
+                    "{{base_url}}"
+                  ],
+                  "path": [
+                    "vendor",
+                    "dashboard",
+                    "stats"
+                  ]
+                },
+                "description": "Required Role: Vendor\nModule: Dashboard\nEvent Tag: \"VENDOR_STATS_FETCHED\""
+              }
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "ERP - Employee APIs (30 endpoints)",
+      "description": "Employee daily tasks, purchase requests, support ticketing, and profiles.",
+      "item": [
+        {
+          "name": "Profile",
+          "item": [
+            {
+              "name": "Employee - Profile - Get Profile",
+              "request": {
+                "method": "GET",
+                "header": [
+                  {
+                    "key": "Authorization",
+                    "value": "Bearer {{employee_token}}"
+                  }
+                ],
+                "url": {
+                  "raw": "{{base_url}}/employee/profile",
+                  "host": [
+                    "{{base_url}}"
+                  ],
+                  "path": [
+                    "employee",
+                    "profile"
+                  ]
+                },
+                "description": "Required Role: Employee\nModule: Profile\nEvent Tag: \"EMPLOYEE_PROFILE_FETCHED\""
+              }
+            },
+            {
+              "name": "Employee - Profile - Update Profile",
+              "request": {
+                "method": "PUT",
+                "header": [
+                  {
+                    "key": "Authorization",
+                    "value": "Bearer {{employee_token}}"
+                  },
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  }
+                ],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"phone\": \"9944332211\"\n}"
+                },
+                "url": {
+                  "raw": "{{base_url}}/employee/profile",
+                  "host": [
+                    "{{base_url}}"
+                  ],
+                  "path": [
+                    "employee",
+                    "profile"
+                  ]
+                },
+                "description": "Required Role: Employee\nModule: Profile\nEvent Tag: \"EMPLOYEE_PROFILE_UPDATED\""
+              }
+            }
+          ]
+        },
+        {
+          "name": "Departments",
+          "item": [
+            {
+              "name": "Employee - Department - List",
+              "request": {
+                "method": "GET",
+                "header": [
+                  {
+                    "key": "Authorization",
+                    "value": "Bearer {{employee_token}}"
+                  }
+                ],
+                "url": {
+                  "raw": "{{base_url}}/employee/departments",
+                  "host": [
+                    "{{base_url}}"
+                  ],
+                  "path": [
+                    "employee",
+                    "departments"
+                  ]
+                },
+                "description": "Required Role: Employee\nModule: Department\nEvent Tag: \"DEPARTMENTS_LISTED\""
+              }
+            }
+          ]
+        },
+        {
+          "name": "Requests",
+          "item": [
+            {
+              "name": "Employee - PR - Create Request",
+              "request": {
+                "method": "POST",
+                "header": [
+                  {
+                    "key": "Authorization",
+                    "value": "Bearer {{employee_token}}"
+                  },
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  }
+                ],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"item\": \"Office Chair\",\n  \"quantity\": 2,\n  \"department\": \"HR\"\n}"
+                },
+                "url": {
+                  "raw": "{{base_url}}/employee/requests",
+                  "host": [
+                    "{{base_url}}"
+                  ],
+                  "path": [
+                    "employee",
+                    "requests"
+                  ]
+                },
+                "description": "Required Role: Employee\nModule: PR\nEvent Tag: \"PR_CREATED\""
+              }
+            },
+            {
+              "name": "Employee - PR - List Requests",
+              "request": {
+                "method": "GET",
+                "header": [
+                  {
+                    "key": "Authorization",
+                    "value": "Bearer {{employee_token}}"
+                  }
+                ],
+                "url": {
+                  "raw": "{{base_url}}/employee/requests",
+                  "host": [
+                    "{{base_url}}"
+                  ],
+                  "path": [
+                    "employee",
+                    "requests"
+                  ]
+                },
+                "description": "Required Role: Employee\nModule: PR\nEvent Tag: \"PR_LISTED\""
+              }
+            },
+            {
+              "name": "Employee - PR - Get Request",
+              "request": {
+                "method": "GET",
+                "header": [
+                  {
+                    "key": "Authorization",
+                    "value": "Bearer {{employee_token}}"
+                  }
+                ],
+                "url": {
+                  "raw": "{{base_url}}/employee/requests/{{requestId}}",
+                  "host": [
+                    "{{base_url}}"
+                  ],
+                  "path": [
+                    "employee",
+                    "requests",
+                    "{{requestId}}"
+                  ]
+                },
+                "description": "Required Role: Employee\nModule: PR\nEvent Tag: \"PR_FETCHED\""
+              }
+            },
+            {
+              "name": "Employee - PR - Update Request",
+              "request": {
+                "method": "PUT",
+                "header": [
+                  {
+                    "key": "Authorization",
+                    "value": "Bearer {{employee_token}}"
+                  },
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  }
+                ],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"quantity\": 3\n}"
+                },
+                "url": {
+                  "raw": "{{base_url}}/employee/requests/{{requestId}}",
+                  "host": [
+                    "{{base_url}}"
+                  ],
+                  "path": [
+                    "employee",
+                    "requests",
+                    "{{requestId}}"
+                  ]
+                },
+                "description": "Required Role: Employee\nModule: PR\nEvent Tag: \"PR_UPDATED\""
+              }
+            },
+            {
+              "name": "Employee - PR - Delete Request",
+              "request": {
+                "method": "DELETE",
+                "header": [
+                  {
+                    "key": "Authorization",
+                    "value": "Bearer {{employee_token}}"
+                  }
+                ],
+                "url": {
+                  "raw": "{{base_url}}/employee/requests/{{requestId}}",
+                  "host": [
+                    "{{base_url}}"
+                  ],
+                  "path": [
+                    "employee",
+                    "requests",
+                    "{{requestId}}"
+                  ]
+                },
+                "description": "Required Role: Employee\nModule: PR\nEvent Tag: \"PR_DELETED\""
+              }
+            },
+            {
+              "name": "Employee - PR - Track Request",
+              "request": {
+                "method": "GET",
+                "header": [
+                  {
+                    "key": "Authorization",
+                    "value": "Bearer {{employee_token}}"
+                  }
+                ],
+                "url": {
+                  "raw": "{{base_url}}/employee/requests/{{requestId}}/track",
+                  "host": [
+                    "{{base_url}}"
+                  ],
+                  "path": [
+                    "employee",
+                    "requests",
+                    "{{requestId}}",
+                    "track"
+                  ]
+                },
+                "description": "Required Role: Employee\nModule: PR\nEvent Tag: \"PR_TRACKED\""
+              }
+            },
+            {
+              "name": "Employee - PR - Add Comment",
+              "request": {
+                "method": "POST",
+                "header": [
+                  {
+                    "key": "Authorization",
+                    "value": "Bearer {{employee_token}}"
+                  },
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  }
+                ],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"comment\": \"Need this by next Wednesday.\"\n}"
+                },
+                "url": {
+                  "raw": "{{base_url}}/employee/requests/{{requestId}}/comments",
+                  "host": [
+                    "{{base_url}}"
+                  ],
+                  "path": [
+                    "employee",
+                    "requests",
+                    "{{requestId}}",
+                    "comments"
+                  ]
+                },
+                "description": "Required Role: Employee\nModule: PR\nEvent Tag: \"PR_COMMENT_ADDED\""
+              }
+            },
+            {
+              "name": "Employee - PR - View Comments",
+              "request": {
+                "method": "GET",
+                "header": [
+                  {
+                    "key": "Authorization",
+                    "value": "Bearer {{employee_token}}"
+                  }
+                ],
+                "url": {
+                  "raw": "{{base_url}}/employee/requests/{{requestId}}/comments",
+                  "host": [
+                    "{{base_url}}"
+                  ],
+                  "path": [
+                    "employee",
+                    "requests",
+                    "{{requestId}}",
+                    "comments"
+                  ]
+                },
+                "description": "Required Role: Employee\nModule: PR\nEvent Tag: \"PR_COMMENTS_FETCHED\""
+              }
+            }
+          ]
+        },
+        {
+          "name": "Tickets",
+          "item": [
+            {
+              "name": "Employee - Ticket - Raise Ticket",
+              "request": {
+                "method": "POST",
+                "header": [
+                  {
+                    "key": "Authorization",
+                    "value": "Bearer {{employee_token}}"
+                  },
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  }
+                ],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"subject\": \"Broken monitor\",\n  \"priority\": \"Medium\"\n}"
+                },
+                "url": {
+                  "raw": "{{base_url}}/employee/tickets",
+                  "host": [
+                    "{{base_url}}"
+                  ],
+                  "path": [
+                    "employee",
+                    "tickets"
+                  ]
+                },
+                "description": "Required Role: Employee\nModule: Ticket\nEvent Tag: \"TICKET_RAISED\""
+              }
+            },
+            {
+              "name": "Employee - Ticket - List Tickets",
+              "request": {
+                "method": "GET",
+                "header": [
+                  {
+                    "key": "Authorization",
+                    "value": "Bearer {{employee_token}}"
+                  }
+                ],
+                "url": {
+                  "raw": "{{base_url}}/employee/tickets",
+                  "host": [
+                    "{{base_url}}"
+                  ],
+                  "path": [
+                    "employee",
+                    "tickets"
+                  ]
+                },
+                "description": "Required Role: Employee\nModule: Ticket\nEvent Tag: \"TICKETS_LISTED\""
+              }
+            },
+            {
+              "name": "Employee - Ticket - Get Ticket",
+              "request": {
+                "method": "GET",
+                "header": [
+                  {
+                    "key": "Authorization",
+                    "value": "Bearer {{employee_token}}"
+                  }
+                ],
+                "url": {
+                  "raw": "{{base_url}}/employee/tickets/{{ticketId}}",
+                  "host": [
+                    "{{base_url}}"
+                  ],
+                  "path": [
+                    "employee",
+                    "tickets",
+                    "{{ticketId}}"
+                  ]
+                },
+                "description": "Required Role: Employee\nModule: Ticket\nEvent Tag: \"TICKET_FETCHED\""
+              }
+            },
+            {
+              "name": "Employee - Ticket - Update Ticket",
+              "request": {
+                "method": "PUT",
+                "header": [
+                  {
+                    "key": "Authorization",
+                    "value": "Bearer {{employee_token}}"
+                  },
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  }
+                ],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"description\": \"It flashes red and does not show screen.\"\n}"
+                },
+                "url": {
+                  "raw": "{{base_url}}/employee/tickets/{{ticketId}}",
+                  "host": [
+                    "{{base_url}}"
+                  ],
+                  "path": [
+                    "employee",
+                    "tickets",
+                    "{{ticketId}}"
+                  ]
+                },
+                "description": "Required Role: Employee\nModule: Ticket\nEvent Tag: \"TICKET_UPDATED\""
+              }
+            },
+            {
+              "name": "Employee - Ticket - Get Ticket Status",
+              "request": {
+                "method": "GET",
+                "header": [
+                  {
+                    "key": "Authorization",
+                    "value": "Bearer {{employee_token}}"
+                  }
+                ],
+                "url": {
+                  "raw": "{{base_url}}/employee/tickets/{{ticketId}}/status",
+                  "host": [
+                    "{{base_url}}"
+                  ],
+                  "path": [
+                    "employee",
+                    "tickets",
+                    "{{ticketId}}",
+                    "status"
+                  ]
+                },
+                "description": "Required Role: Employee\nModule: Ticket\nEvent Tag: \"TICKET_STATUS_CHECKED\""
+              }
+            }
+          ]
+        },
+        {
+          "name": "Tasks",
+          "item": [
+            {
+              "name": "Employee - Task - List Tasks",
+              "request": {
+                "method": "GET",
+                "header": [
+                  {
+                    "key": "Authorization",
+                    "value": "Bearer {{employee_token}}"
+                  }
+                ],
+                "url": {
+                  "raw": "{{base_url}}/employee/tasks",
+                  "host": [
+                    "{{base_url}}"
+                  ],
+                  "path": [
+                    "employee",
+                    "tasks"
+                  ]
+                },
+                "description": "Required Role: Employee\nModule: Task\nEvent Tag: \"TASKS_LISTED\""
+              }
+            },
+            {
+              "name": "Employee - Task - Get Task",
+              "request": {
+                "method": "GET",
+                "header": [
+                  {
+                    "key": "Authorization",
+                    "value": "Bearer {{employee_token}}"
+                  }
+                ],
+                "url": {
+                  "raw": "{{base_url}}/employee/tasks/{{taskId}}",
+                  "host": [
+                    "{{base_url}}"
+                  ],
+                  "path": [
+                    "employee",
+                    "tasks",
+                    "{{taskId}}"
+                  ]
+                },
+                "description": "Required Role: Employee\nModule: Task\nEvent Tag: \"TASK_FETCHED\""
+              }
+            },
+            {
+              "name": "Employee - Task - Update Task Status",
+              "request": {
+                "method": "PUT",
+                "header": [
+                  {
+                    "key": "Authorization",
+                    "value": "Bearer {{employee_token}}"
+                  },
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  }
+                ],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"status\": \"In Progress\"\n}"
+                },
+                "url": {
+                  "raw": "{{base_url}}/employee/tasks/{{taskId}}/status",
+                  "host": [
+                    "{{base_url}}"
+                  ],
+                  "path": [
+                    "employee",
+                    "tasks",
+                    "{{taskId}}",
+                    "status"
+                  ]
+                },
+                "description": "Required Role: Employee\nModule: Task\nEvent Tag: \"TASK_STATUS_UPDATED\""
+              }
+            }
+          ]
+        },
+        {
+          "name": "Files",
+          "item": [
+            {
+              "name": "Employee - File - Upload File",
+              "request": {
+                "method": "POST",
+                "header": [
+                  {
+                    "key": "Authorization",
+                    "value": "Bearer {{employee_token}}"
+                  },
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  }
+                ],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"fileName\": \"profile_pic.png\"\n}"
+                },
+                "url": {
+                  "raw": "{{base_url}}/employee/files",
+                  "host": [
+                    "{{base_url}}"
+                  ],
+                  "path": [
+                    "employee",
+                    "files"
+                  ]
+                },
+                "description": "Required Role: Employee\nModule: File\nEvent Tag: \"FILE_UPLOADED\""
+              }
+            },
+            {
+              "name": "Employee - File - List Files",
+              "request": {
+                "method": "GET",
+                "header": [
+                  {
+                    "key": "Authorization",
+                    "value": "Bearer {{employee_token}}"
+                  }
+                ],
+                "url": {
+                  "raw": "{{base_url}}/employee/files",
+                  "host": [
+                    "{{base_url}}"
+                  ],
+                  "path": [
+                    "employee",
+                    "files"
+                  ]
+                },
+                "description": "Required Role: Employee\nModule: File\nEvent Tag: \"FILES_LISTED\""
+              }
+            }
+          ]
+        },
+        {
+          "name": "Logs & History",
+          "item": [
+            {
+              "name": "Employee - Log - View History",
+              "request": {
+                "method": "GET",
+                "header": [
+                  {
+                    "key": "Authorization",
+                    "value": "Bearer {{employee_token}}"
+                  }
+                ],
+                "url": {
+                  "raw": "{{base_url}}/employee/history",
+                  "host": [
+                    "{{base_url}}"
+                  ],
+                  "path": [
+                    "employee",
+                    "history"
+                  ]
+                },
+                "description": "Required Role: Employee\nModule: Log\nEvent Tag: \"HISTORY_LOG_VIEWED\""
+              }
+            }
+          ]
+        },
+        {
+          "name": "Support Chat",
+          "item": [
+            {
+              "name": "Employee - Chat - Send Message",
+              "request": {
+                "method": "POST",
+                "header": [
+                  {
+                    "key": "Authorization",
+                    "value": "Bearer {{employee_token}}"
+                  },
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  }
+                ],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"message\": \"Can someone help with my laptop repair status?\"\n}"
+                },
+                "url": {
+                  "raw": "{{base_url}}/employee/chat/messages",
+                  "host": [
+                    "{{base_url}}"
+                  ],
+                  "path": [
+                    "employee",
+                    "chat",
+                    "messages"
+                  ]
+                },
+                "description": "Required Role: Employee\nModule: Chat\nEvent Tag: \"CHAT_MESSAGE_SENT\""
+              }
+            },
+            {
+              "name": "Employee - Chat - Get Messages",
+              "request": {
+                "method": "GET",
+                "header": [
+                  {
+                    "key": "Authorization",
+                    "value": "Bearer {{employee_token}}"
+                  }
+                ],
+                "url": {
+                  "raw": "{{base_url}}/employee/chat/messages",
+                  "host": [
+                    "{{base_url}}"
+                  ],
+                  "path": [
+                    "employee",
+                    "chat",
+                    "messages"
+                  ]
+                },
+                "description": "Required Role: Employee\nModule: Chat\nEvent Tag: \"CHAT_MESSAGES_FETCHED\""
+              }
+            }
+          ]
+        },
+        {
+          "name": "Notifications",
+          "item": [
+            {
+              "name": "Employee - Notification - Get All",
+              "request": {
+                "method": "GET",
+                "header": [
+                  {
+                    "key": "Authorization",
+                    "value": "Bearer {{employee_token}}"
+                  }
+                ],
+                "url": {
+                  "raw": "{{base_url}}/employee/notifications",
+                  "host": [
+                    "{{base_url}}"
+                  ],
+                  "path": [
+                    "employee",
+                    "notifications"
+                  ]
+                },
+                "description": "Required Role: Employee\nModule: Notification\nEvent Tag: \"NOTIFICATIONS_FETCHED\""
+              }
+            },
+            {
+              "name": "Employee - Notification - Mark Read",
+              "request": {
+                "method": "PUT",
+                "header": [
+                  {
+                    "key": "Authorization",
+                    "value": "Bearer {{employee_token}}"
+                  },
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  }
+                ],
+                "url": {
+                  "raw": "{{base_url}}/employee/notifications/{{notificationId}}/read",
+                  "host": [
+                    "{{base_url}}"
+                  ],
+                  "path": [
+                    "employee",
+                    "notifications",
+                    "{{notificationId}}",
+                    "read"
+                  ]
+                },
+                "description": "Required Role: Employee\nModule: Notification\nEvent Tag: \"NOTIFICATION_MARKED_READ\""
+              }
+            }
+          ]
+        },
+        {
+          "name": "Dashboard",
+          "item": [
+            {
+              "name": "Employee - Dashboard - Personal Stats",
+              "request": {
+                "method": "GET",
+                "header": [
+                  {
+                    "key": "Authorization",
+                    "value": "Bearer {{employee_token}}"
+                  }
+                ],
+                "url": {
+                  "raw": "{{base_url}}/employee/dashboard/stats",
+                  "host": [
+                    "{{base_url}}"
+                  ],
+                  "path": [
+                    "employee",
+                    "dashboard",
+                    "stats"
+                  ]
+                },
+                "description": "Required Role: Employee\nModule: Dashboard\nEvent Tag: \"PERSONAL_STATS_FETCHED\""
+              }
+            },
+            {
+              "name": "Employee - Approval - Track Approval",
+              "request": {
+                "method": "GET",
+                "header": [
+                  {
+                    "key": "Authorization",
+                    "value": "Bearer {{employee_token}}"
+                  }
+                ],
+                "url": {
+                  "raw": "{{base_url}}/employee/approvals/status",
+                  "host": [
+                    "{{base_url}}"
+                  ],
+                  "path": [
+                    "employee",
+                    "approvals",
+                    "status"
+                  ]
+                },
+                "description": "Required Role: Employee\nModule: Approval\nEvent Tag: \"APPROVAL_STATUS_TRACKED\""
+              }
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

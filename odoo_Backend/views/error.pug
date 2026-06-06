@@ -1,0 +1,7 @@
+extends layout
+
+block content
+  h1 Error #{statusCode || 500}
+  p.message #{message || 'An unexpected error occurred.'}
+  if error && error.stack
+    pre(style="background-color: #f1f1f1; padding: 15px; border-radius: 4px; overflow-x: auto; font-size: 13px;") #{error.stack}
