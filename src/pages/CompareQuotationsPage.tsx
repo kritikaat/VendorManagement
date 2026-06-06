@@ -24,69 +24,69 @@ export function CompareQuotationsPage() {
         subtitle={`RFQ: ${MOCK_RFQ.title.toLowerCase()} — 3 quotations received`}
       />
 
-      <div className="overflow-x-auto rounded-lg border border-border">
-        <table className="w-full min-w-[800px] text-sm">
-          <thead>
-            <tr className="border-b border-border bg-card">
-              <th className="px-4 py-3 text-left text-xs font-medium uppercase text-muted-foreground">
-                Criteria
-              </th>
-              {MOCK_QUOTATION_COMPARISONS.map((quote) => (
-                <th
-                  key={quote.vendorId}
-                  className={cn(
-                    'px-4 py-3 text-left text-xs font-medium uppercase',
-                    quote.isLowest
-                      ? 'bg-emerald-500/20 text-emerald-400'
-                      : 'text-muted-foreground',
-                  )}
-                >
-                  {quote.vendorName}
-                  {quote.isLowest ? ' (Lowest)' : ''}
+      <div className="overflow-hidden rounded-lg border border-slate-200 bg-white">
+        <div className="overflow-x-auto">
+          <table className="w-full min-w-[800px] text-sm">
+            <thead>
+              <tr className="border-b border-slate-200 bg-slate-50">
+                <th className="px-4 py-3 text-left text-xs font-semibold uppercase text-slate-500">
+                  Criteria
                 </th>
+                {MOCK_QUOTATION_COMPARISONS.map((quote) => (
+                  <th
+                    key={quote.vendorId}
+                    className={cn(
+                      'px-4 py-3 text-left text-xs font-semibold uppercase',
+                      quote.isLowest ? 'bg-emerald-50 text-emerald-900' : 'text-slate-500',
+                    )}
+                  >
+                    {quote.vendorName}
+                    {quote.isLowest ? ' (Lowest)' : ''}
+                  </th>
+                ))}
+              </tr>
+            </thead>
+            <tbody>
+              {COMPARISON_ROWS.map((row) => (
+                <tr key={row.label} className="border-b border-slate-100">
+                  <td className="px-4 py-3 font-medium text-slate-900">{row.label}</td>
+                  {MOCK_QUOTATION_COMPARISONS.map((quote) => (
+                    <td
+                      key={quote.vendorId}
+                      className={cn(
+                        'px-4 py-3',
+                        quote.isLowest && 'bg-emerald-50/60 font-medium text-emerald-900',
+                      )}
+                    >
+                      {row.getValue(quote)}
+                    </td>
+                  ))}
+                </tr>
               ))}
-            </tr>
-          </thead>
-          <tbody>
-            {COMPARISON_ROWS.map((row) => (
-              <tr key={row.label} className="border-b border-border last:border-0">
-                <td className="px-4 py-3 font-medium">{row.label}</td>
+              <tr>
+                <td className="px-4 py-3" />
                 {MOCK_QUOTATION_COMPARISONS.map((quote) => (
                   <td
                     key={quote.vendorId}
-                    className={cn(
-                      'px-4 py-3',
-                      quote.isLowest && 'bg-emerald-500/10 font-medium text-emerald-400',
-                    )}
+                    className={cn('px-4 py-4', quote.isLowest && 'bg-emerald-50/60')}
                   >
-                    {row.getValue(quote)}
+                    <Button
+                      variant={quote.isLowest ? 'default' : 'outline'}
+                      size="sm"
+                      className="w-full"
+                    >
+                      {quote.isLowest ? 'Select & Approve' : 'Select'}
+                    </Button>
                   </td>
                 ))}
               </tr>
-            ))}
-            <tr>
-              <td className="px-4 py-3" />
-              {MOCK_QUOTATION_COMPARISONS.map((quote) => (
-                <td
-                  key={quote.vendorId}
-                  className={cn('px-4 py-4', quote.isLowest && 'bg-emerald-500/10')}
-                >
-                  <Button
-                    variant={quote.isLowest ? 'default' : 'outline'}
-                    size="sm"
-                    className="w-full"
-                  >
-                    {quote.isLowest ? 'Select & Approve' : 'Select'}
-                  </Button>
-                </td>
-              ))}
-            </tr>
-          </tbody>
-        </table>
+            </tbody>
+          </table>
+        </div>
       </div>
 
-      <p className="mt-4 text-sm text-red-400">
-        Green = lowest price, selecting vendor initiates the approval workflow.
+      <p className="mt-4 text-sm text-slate-600">
+        Lowest price column is highlighted. Selecting a vendor initiates the approval workflow.
       </p>
 
       <div className="mt-6">

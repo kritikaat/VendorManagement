@@ -8,23 +8,21 @@ export function Sidebar() {
   const navItems = getNavItemsForRole(user?.role ?? '');
 
   return (
-    <aside className="hidden w-64 shrink-0 border-r border-border bg-card lg:block">
-      <div className="flex h-14 items-center border-b border-border px-6">
-        <span className="text-lg font-semibold tracking-tight">
-          Vendor<span className="text-emerald-400">Bridge</span>
-        </span>
+    <aside className="hidden w-60 shrink-0 border-r border-slate-200 bg-white lg:block">
+      <div className="flex h-14 items-center border-b border-slate-200 px-5">
+        <span className="text-base font-semibold tracking-tight text-slate-900">VendorBridge</span>
       </div>
-      <nav className="space-y-1 p-4">
+      <nav className="p-3">
         {navItems.map((item) => (
           <NavLink
             key={item.path}
             to={item.path}
             className={({ isActive }) =>
               cn(
-                'flex items-center gap-3 rounded-md px-3 py-2 text-sm transition-colors',
+                'mb-0.5 flex items-center gap-3 rounded-md px-3 py-2 text-sm font-medium transition-colors',
                 isActive
-                  ? 'border border-emerald-500/50 bg-emerald-500/10 text-foreground'
-                  : 'text-muted-foreground hover:bg-secondary hover:text-foreground',
+                  ? 'border-l-2 border-emerald-700 bg-emerald-50 pl-[10px] text-emerald-900'
+                  : 'text-slate-600 hover:bg-slate-50 hover:text-slate-900',
               )
             }
           >

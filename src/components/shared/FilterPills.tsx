@@ -15,10 +15,10 @@ export function FilterPills({ options, active, onChange }: FilterPillsProps) {
           type="button"
           onClick={() => onChange(option.value)}
           className={cn(
-            'rounded-full border px-4 py-1.5 text-sm transition-colors',
+            'rounded-md border px-3 py-1.5 text-sm font-medium transition-colors',
             active === option.value
-              ? 'border-emerald-500/50 bg-emerald-500/10 text-foreground'
-              : 'border-border text-muted-foreground hover:bg-secondary hover:text-foreground',
+              ? 'border-emerald-700 bg-emerald-700 text-white'
+              : 'border-slate-200 bg-white text-slate-600 hover:border-slate-300 hover:text-slate-900',
           )}
         >
           {option.label}

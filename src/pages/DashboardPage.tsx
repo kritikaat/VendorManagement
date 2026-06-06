@@ -23,37 +23,37 @@ export function DashboardPage() {
       />
 
       <div className="mb-6 grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
-        <StatCard label="Active RFQ's" value={12} colorClass="text-blue-400" />
-        <StatCard label="Pending Approvals" value={5} colorClass="text-emerald-400" />
-        <StatCard label="PO's this month" value="₹2.3L" colorClass="text-orange-400" />
-        <StatCard label="Overdue Invoices" value={3} colorClass="text-red-400" />
+        <StatCard label="Active RFQ's" value={12} colorClass="text-blue-700" />
+        <StatCard label="Pending Approvals" value={5} colorClass="text-emerald-700" />
+        <StatCard label="PO's this month" value="₹2.3L" colorClass="text-amber-700" />
+        <StatCard label="Overdue Invoices" value={3} colorClass="text-red-600" />
       </div>
 
       <div className="mb-6 grid gap-6 lg:grid-cols-2">
-        <div className="rounded-lg border border-border bg-card">
-          <div className="border-b border-border px-4 py-3">
-            <h2 className="text-sm font-medium">Recent Purchase Orders</h2>
+        <div className="overflow-hidden rounded-lg border border-slate-200 bg-white">
+          <div className="border-b border-slate-100 bg-slate-50/80 px-5 py-4">
+            <h2 className="font-semibold text-slate-900">Recent Purchase Orders</h2>
           </div>
           <div className="overflow-x-auto">
             <table className="w-full text-sm">
               <thead>
-                <tr className="border-b border-border text-xs uppercase text-muted-foreground">
-                  <th className="px-4 py-2 text-left">PO#</th>
-                  <th className="px-4 py-2 text-left">Vendor</th>
-                  <th className="px-4 py-2 text-left">Amount</th>
-                  <th className="px-4 py-2 text-left">Status</th>
+                <tr className="border-b border-slate-100 text-xs uppercase text-muted-foreground">
+                  <th className="px-5 py-2 text-left">PO#</th>
+                  <th className="px-5 py-2 text-left">Vendor</th>
+                  <th className="px-5 py-2 text-left">Amount</th>
+                  <th className="px-5 py-2 text-left">Status</th>
                 </tr>
               </thead>
               <tbody>
                 {RECENT_POS.map((po) => (
-                  <tr key={po.po} className="border-b border-border last:border-0">
-                    <td className="px-4 py-3">{po.po}</td>
-                    <td className="px-4 py-3">{po.vendor}</td>
-                    <td className="px-4 py-3">{po.amount}</td>
-                    <td className="px-4 py-3">
+                  <tr key={po.po} className="border-b border-slate-50 hover:bg-emerald-50/30">
+                    <td className="px-5 py-3 font-medium">{po.po}</td>
+                    <td className="px-5 py-3">{po.vendor}</td>
+                    <td className="px-5 py-3">{po.amount}</td>
+                    <td className="px-5 py-3">
                       <StatusBadge
                         status={po.status}
-                        variant={po.status === 'Approved' ? 'active' : 'pending'}
+                        variant={po.status === 'Approved' ? 'approved' : 'pending'}
                       />
                     </td>
                   </tr>
@@ -63,16 +63,16 @@ export function DashboardPage() {
           </div>
         </div>
 
-        <div className="rounded-lg border border-border bg-white p-6 text-zinc-900">
-          <h2 className="mb-4 text-sm font-medium">Spending Trends last 6 months</h2>
-          <div className="flex h-40 items-end justify-between gap-2">
-            {[40, 55, 45, 60, 50, 70].map((height, i) => (
+        <div className="rounded-lg border border-slate-200 bg-white p-6">
+          <h2 className="mb-4 text-sm font-semibold text-slate-900">Spending Trends — last 6 months</h2>
+          <div className="flex h-44 items-end justify-between gap-2">
+            {[40, 55, 45, 60, 50, 72].map((height, i) => (
               <div key={i} className="flex flex-1 flex-col items-center gap-2">
                 <div
-                  className="w-full rounded-t bg-blue-400"
+                  className="w-full rounded-sm bg-emerald-600"
                   style={{ height: `${height}%` }}
                 />
-                <span className="text-xs text-zinc-500">
+                <span className="text-xs font-medium text-slate-500">
                   {['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun'][i]}
                 </span>
               </div>
