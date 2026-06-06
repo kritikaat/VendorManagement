@@ -10,7 +10,7 @@ interface ApiInvoice {
   poId?: { _id?: string } | string;
   poNumber: string;
   vendorId?: { companyName?: string; name?: string } | string;
-  vendorDetails?: { name?: string; email?: string };
+  vendorDetails?: { name?: string; email?: string; address?: string; gstin?: string };
   total?: number;
   grandTotal: number;
   invoiceDate?: string;
